@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Градитељ часа</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2b8a3e">
+<link rel="icon" href="ikone/ikona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="ikone/ikona-192.png">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #e4e2dc;
+    --chip: #efede8; --accent: #1971c2; --ok: #2b8a3e; --warn: #c2410c; --warn-bg: #fff4e6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ecebe7; --muted: #a09e98; --line: #34332f; --chip: #2c2b28;
+      --accent: #4dabf7; --ok: #51cf66; --warn: #ffa94d; --warn-bg: #2b2117;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  h1 { font-size: 18px; margin: 0; flex: 1 1 auto; }
+  h1 a { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 8px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--text); padding: 6px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+  .steps { max-width: 1100px; margin: 0 auto; padding: 0 16px 10px; display: flex; gap: 6px; overflow-x: auto; }
+  .steps button { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 999px;
+                  padding: 4px 12px; cursor: pointer; font: inherit; font-size: 14px; }
+  .steps button[aria-current="step"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+  .steps button.done { color: var(--text); }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  h2 { font-size: 20px; margin: 4px 0 4px; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  .form { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+  input, select, textarea { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+          color: var(--text); font: inherit; min-width: 0; width: 100%; }
+  textarea { resize: vertical; min-height: 54px; }
+  .btn { border: 1px solid var(--text); background: var(--text); color: var(--surface); border-radius: 8px;
+         padding: 7px 14px; cursor: pointer; font: inherit; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+  .btn.small { padding: 3px 10px; font-size: 13px; }
+  .nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 20px; }
+  .count { color: var(--muted); font-size: 13px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .pick { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+          cursor: pointer; font: inherit; color: inherit; }
+  .pick[aria-pressed="true"] { border: 2px solid var(--accent); padding: 11px 13px; }
+  .pick b { display: block; margin-bottom: 4px; }
+  .pick small { color: var(--muted); }
+  .lessons { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; max-height: 60vh; overflow: auto; }
+  .lesson { display: grid; grid-template-columns: 6px 40px 1fr; gap: 0 10px; width: 100%; text-align: left; border: 0;
+            border-top: 1px solid var(--line); background: transparent; color: inherit; font: inherit; padding: 0; cursor: pointer; }
+  .lesson:first-child { border-top: 0; }
+  .lesson .sp { background: var(--c); }
+  .lesson .rb { color: var(--muted); text-align: right; padding: 7px 0; }
+  .lesson .tx { padding: 7px 10px 7px 0; }
+  .lesson[aria-pressed="true"] { background: var(--chip); font-weight: 600; }
+  .lesson:disabled { opacity: .45; cursor: default; }
+  .station { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c, var(--line));
+             border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+  .st-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .st-num { background: var(--text); color: var(--surface); border-radius: 8px; padding: 2px 10px; font-weight: 700; }
+  .st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .task { background: var(--chip); border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+  .task .tx { white-space: pre-line; }
+  .digit { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; background: var(--ok); color: #fff; font-weight: 700; }
+  .warn { background: var(--warn-bg); border-left: 4px solid var(--warn); padding: 8px 12px; border-radius: 6px; margin: 6px 0; }
+  .okmsg { color: var(--ok); }
+  table { border-collapse: collapse; width: 100%; background: var(--surface); }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--chip); font-weight: 600; }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
+  .box h3 { margin: 0 0 8px; font-size: 15px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  #print { display: none; }
+  @media (max-width: 700px) { .st-grid, .twocol { grid-template-columns: 1fr; } }
+
+  /* --- štampa --- */
+  @media print {
+    header, main { display: none !important; }
+    body { background: #fff; color: #000; font-size: 12pt; }
+    #print { display: block; }
+    .pg { break-after: page; }
+    .pg:last-child { break-after: auto; }
+    table { background: #fff; }
+    th, td { border: 1px solid #000; }
+    th { background: #eee; }
+    .p-card { border: 3px solid #000; border-radius: 10px; padding: 8mm; }
+    .p-num { font-size: 40pt; font-weight: 800; line-height: 1; }
+    .p-cut { border-top: 2px dashed #000; margin: 10mm 0 6mm; padding-top: 2mm; font-size: 9pt; text-align: center; }
+    .p-task { font-size: 15pt; white-space: pre-line; }
+    .p-code { display: flex; gap: 4mm; margin: 6mm 0; }
+    .p-code div { width: 16mm; height: 20mm; border: 2px solid #000; border-radius: 3mm; display: flex; align-items: flex-end;
+                  justify-content: center; font-size: 9pt; padding-bottom: 1mm; }
+    h1.p, h2.p { margin: 0 0 4mm; }
+    .p-muted { color: #444; font-size: 10pt; }
+  }
+  .slika { margin: 8px 0; overflow-x: auto; color: inherit; }
+  .slika svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1><a href="index.html" title="Почетна" style="text-decoration:none;margin-right:8px;font-size:18px" aria-label="Почетна">⌂</a><span data-t="Градитељ часа">Градитељ часа</span>
+      <a href="katalog.html" data-t="Каталог">Каталог</a><a href="zadaci.html" data-t="Задаци">Задаци</a></h1>
+    <select id="moji" style="width:auto"></select>
+    <button class="btn ghost small" id="nov" data-t="Нови час">Нови час</button>
+    <button class="btn small" id="sacuvaj" data-t="Сачувај">Сачувај</button>
+    <div class="seg" id="pismo">
+      <button data-p="cir" aria-pressed="true">Ћир</button>
+      <button data-p="lat" aria-pressed="false">Lat</button>
+    </div>
+  </div>
+  <nav class="steps" id="steps"></nav>
+</header>
+<main id="app"></main>
+<div id="print"></div>
+
+<script src="src/translit.js"></script>
+<script src="src/generator.js"></script>
+<script src="src/price.js"></script>
+<script src="data/katalog-data.js"></script>
+<script src="data/zadaci-data.js"></script>
+<script src="data/igre-data.js"></script>
+<script>
+(() => {
+  const K = window.KATALOG, Z = window.ZADACI, PRICE = window.PRICE;
+  const EL = Object.fromEntries(K.elementi.map(e => [e.id, e]));
+  const SP = Object.fromEntries(K.sportovi.map(s => [s.id, s]));
+  const ZAD = Object.fromEntries(Z.zadaci.map(z => [z.id, z]));
+  const TIP = Object.fromEntries(Z.tipovi.map(t => [t.id, t.naziv]));
+  const IGRE = window.IGRE?.igre || [];
+  const IG = Object.fromEntries(IGRE.map(g => [g.id, g]));
+  const igreZa = el => IGRE.filter(g => g.elementi.includes(el) && ['stanica', 'inkluzivna'].includes(g.kategorija));
+  const igreKategorije = (...k) => IGRE.filter(g => k.includes(g.kategorija));
+  const imeIgre = g => ((g.izvor || []).includes('moje') ? '★ ' : '') + t(g.naziv);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } }
+  };
+  let pismo = store.get('pismo-cas', 'cir');
+  const t = s => Translit.pismo(s, pismo);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const T = s => esc(t(s));
+  const app = document.getElementById('app');
+  const KORACI = ['Одељење', 'Час из плана', 'Прича', 'Групе и време', 'Станице', 'Преглед и штампа'];
+  let korak = 0;
+
+  // ---------- model časa ----------
+  function noviCas() {
+    return {
+      id: 'c' + Date.now().toString(36), datum: new Date().toISOString().slice(0, 10),
+      godina: 1, odeljenje: '', ucenika: 28, prostor: 'сала',
+      casRb: null, elementi: [], prica: 'pehar',
+      grupe: 4, brojStanica: 4, minuti: { uvodni: 5, pripremni: 10, glavni: 25, zavrsni: 5 },
+      stanice: [], zagrevanje: 'ko-je-vodja', finaleIgra: '', seed: Math.floor(Math.random() * 1e9)
+    };
+  }
+  let C = noviCas();
+  const razred = () => C.godina + 8;
+  const lekcija = () => K.planovi.find(p => p.godina === C.godina)?.casovi.find(c => c.rb === C.casRb);
+  const prica = () => PRICE.find(p => p.id === C.prica) || PRICE[0];
+
+  // predlog elemenata za stanice: elementi časa → prethodni elementi istog sporta iz plana → ostali iz godine → kondicija
+  function predlogElemenata(n) {
+    const plan = K.planovi.find(p => p.godina === C.godina);
+    const glavni = C.elementi.filter(id => EL[id].sport !== 'ostalo');
+    const sport = glavni.length ? EL[glavni[0]].sport : null;
+    const pool = [...glavni];
+    const dodaj = id => { if (!pool.includes(id) && EL[id].sport !== 'ostalo') pool.push(id); };
+    if (sport) {
+      plan.casovi.filter(c => c.rb < (C.casRb || 0) && c.sport === sport).reverse().forEach(c => c.elementi.forEach(dodaj));
+      K.elementi.filter(e => e.sport === sport && e.godine?.[C.godina]).forEach(e => dodaj(e.id));
+      K.elementi.filter(e => e.sport === sport).forEach(e => dodaj(e.id));
+    }
+    ['kon-snaga', 'kon-oblikovanje', 'kon-izdrzljivost'].forEach(dodaj);
+    // glavni element(i) časa dobijaju bar polovinu stanica
+    const izbor = [];
+    for (let i = 0; i < n; i++) {
+      if (glavni.length && i < Math.ceil(n / 2)) izbor.push(glavni[i % glavni.length]);
+      else izbor.push(pool[(i - (glavni.length ? Math.ceil(n / 2) : 0) + glavni.length) % pool.length]);
+    }
+    return izbor;
+  }
+
+  function nasumicnaSifra(n, seed) {
+    let s = seed, out = '';
+    for (let i = 0; i < n; i++) { s = (s * 1103515245 + 12345) % 2147483648; out += Math.floor((s / 2147483648) * 10); }
+    if (/^(\d)\1+$/.test(out)) out = out.slice(0, -1) + ((+out.at(-1) + 3) % 10);
+    return out;
+  }
+
+  function zadatakSpec(z) {
+    return z.izvor === 'banka' ? { izvor: 'banka', id: z.id, cifra: z.cifra }
+      : { izvor: 'sablon', sablon: z.sablon, nivo: z.nivo, seed: z.seed, cifra: z.cifra };
+  }
+
+  function predloziStanice() {
+    const n = C.brojStanica;
+    const elementi = predlogElemenata(n);
+    const kod = nasumicnaSifra(n, C.seed);
+    const zad = Generator.sifra(kod, { razred: razred(), pismo: 'cir', seed: C.seed, banka: Z.zadaci, udeoBanke: 0.4 });
+    // kad se isti element ponavlja, druga i dalja pojava dobija igru iz biblioteke (ako postoji)
+    const brojac = {};
+    C.stanice = elementi.map((id, i) => {
+      const k = brojac[id] = (brojac[id] ?? -1) + 1;
+      const igre = igreZa(id);
+      return { element: id, igra: k > 0 && igre[k - 1] ? igre[k - 1].id : null, kapijaIgra: null,
+               kretanje: null, kapija: null, zadatak: zadatakSpec(zad[i]) };
+    });
+  }
+
+  function prikaziZadatak(spec) {
+    if (spec.izvor === 'banka') {
+      const z = ZAD[spec.id];
+      return { tip: z.tip, tekst: t(z.tekst), odgovor: t(z.odgovor), objasnjenje: t(z.objasnjenje || ''),
+               nagovestaji: (z.nagovestaji || []).map(t), materijal: z.materijal ? t(z.materijal) : '', cifra: spec.cifra };
+    }
+    const z = Generator.generisi(spec.sablon, spec.cifra, { nivo: spec.nivo, pismo, seed: spec.seed });
+    return { ...z, materijal: '' };
+  }
+
+  function zameniZadatak(i, nacin) {
+    const st = C.stanice[i], d = st.zadatak.cifra, nivo = Generator.nivoZaRazred(razred());
+    const seed = Math.floor(Math.random() * 1e9);
+    if (nacin === 'banka') {
+      const moguci = Z.zadaci.filter(z => z.cifra === d && razred() >= z.razredi[0] && razred() <= z.razredi[1] && z.id !== st.zadatak.id);
+      if (!moguci.length) return alert(t('У банци нема задатка са том цифром за овај разред.'));
+      st.zadatak = { izvor: 'banka', id: moguci[seed % moguci.length].id, cifra: d };
+    } else {
+      const s = nacin || st.zadatak.sablon || Generator.SABLONI[seed % Generator.SABLONI.length].id;
+      if (!Generator.generisi(s, d, { nivo, seed })) return alert(t('Овај шаблон не подржава ову цифру.'));
+      st.zadatak = { izvor: 'sablon', sablon: s, nivo, seed, cifra: d };
+    }
+  }
+
+  // ako se isti element ponavlja na više stanica, svaka dobija drugu ključnu tačku kao fokus
+  function kretanje(st) {
+    if (st.kretanje != null) return st.kretanje;
+    if (st.igra && IG[st.igra]) { const g = IG[st.igra]; return `${t(g.naziv)}: ${g.pravila.map(t).join(' ')}`; }
+    const e = EL[st.element], isti = C.stanice.filter(s => s.element === st.element && !s.igra);
+    let txt = t(e.stanica.kretanje);
+    if (isti.length > 1 && e.kljucneTacke.length) {
+      const k = isti.indexOf(st);
+      txt += ` ${t('Фокус')}: ${t(e.kljucneTacke[k % e.kljucneTacke.length]).toLowerCase()}.`;
+    }
+    return txt;
+  }
+  function kapija(st) {
+    if (st.kapija != null) return st.kapija;
+    const kg = IG[st.kapijaIgra];
+    if (kg) return `${t(kg.kategorija === 'kooperativna' ? 'Тимски изазов' : 'Мини-изазов')} „${t(kg.naziv)}“: ${t(kg.kapija)}`;
+    if (st.igra && IG[st.igra]?.kapija) return t(IG[st.igra].kapija);
+    return t(EL[st.element].stanica.kapija);
+  }
+  const imeStanice = i => t(prica().stanice[i] || `Станица ${i + 1}`);
+  const kod = () => C.stanice.map(s => s.zadatak.cifra).join('');
+  const naStanici = (g, r) => (g + r) % C.brojStanica;   // grupa g u krugu r
+  const minPoStanici = () => Math.floor(C.minuti.glavni / C.brojStanica);
+
+  function upozorenja() {
+    const w = [];
+    const L = lekcija();
+    if (!L) w.push('Није изабран час из плана.');
+    else if (L.elementi.every(id => EL[id].sport === 'ostalo')) w.push('Изабрани час је организациони (оцењивање/игра) — авантура је могућа, али нема нови елемент.');
+    if (C.grupe > C.brojStanica) w.push(`Број група (${C.grupe}) је већи од броја станица (${C.brojStanica}) — по две групе ће бити на истој станици.`);
+    const vel = Math.ceil(C.ucenika / C.grupe);
+    if (vel > 8) w.push(`Групе имају до ${vel} ученика — мање понављања по ученику. Размислите о више група/станица.`);
+    if (minPoStanici() < 4) w.push(`На станици је само ${minPoStanici()} мин — премало за вежбу и задатак (препорука ≥ 5 мин).`);
+    const ukupno = Object.values(C.minuti).reduce((a, b) => a + b, 0);
+    if (ukupno !== 45) w.push(`Збир делова часа је ${ukupno} мин (уместо 45).`);
+    C.stanice.forEach((s, i) => {
+      const p = EL[s.element].prostor;
+      if (p !== 'оба' && p !== C.prostor) w.push(`Станица ${i + 1}: елемент „${EL[s.element].naziv}“ тражи простор „${p}“, а час је у простору „${C.prostor}“.`);
+    });
+    const zadSet = C.stanice.map(s => prikaziZadatak(s.zadatak).tip);
+    if (new Set(zadSet).size < zadSet.length) w.push('Неке станице имају задатак истог типа — размислите о замени ради разноврсности.');
+    return w;
+  }
+
+  function rekviziti() {
+    const r = new Map();
+    const dodaj = (x, gde) => { if (!r.has(x)) r.set(x, []); if (!r.get(x).includes(gde)) r.get(x).push(gde); };
+    C.stanice.forEach((s, i) => {
+      const izvor = s.igra && IG[s.igra] ? IG[s.igra].rekviziti : EL[s.element].rekviziti;
+      izvor.forEach(x => dodaj(x, i + 1));
+      (IG[s.kapijaIgra]?.rekviziti || []).forEach(x => dodaj(x, i + 1));
+    });
+    (IG[C.zagrevanje]?.rekviziti || []).forEach(x => dodaj(x, t('припремни')));
+    (IG[C.finaleIgra]?.rekviziti || []).forEach(x => dodaj(x, t('завршни')));
+    return [...r.entries()];
+  }
+
+  // ---------- prikaz ----------
+  function render() {
+    document.querySelectorAll('[data-t]').forEach(n => n.textContent = t(n.dataset.t));
+    document.title = t('Градитељ часа');
+    document.querySelectorAll('#pismo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === pismo));
+    document.getElementById('steps').innerHTML = KORACI.map((k, i) =>
+      `<button data-korak="${i}" ${i === korak ? 'aria-current="step"' : ''} class="${i < korak ? 'done' : ''}">${i + 1}. ${T(k)}</button>`).join('');
+    renderMoji();
+    [k1, k2, k3, k4, k5, k6][korak]();
+    app.querySelectorAll('[data-bind]').forEach(n => {
+      n.addEventListener('change', () => {
+        const path = n.dataset.bind.split('.');
+        let o = C; while (path.length > 1) o = o[path.shift()];
+        o[path[0]] = n.type === 'number' ? Math.max(+n.min || 0, Math.min(+n.max || 999, +n.value || 0)) : n.value;
+        if (n.dataset.bind === 'godina') { C.godina = +n.value; C.casRb = null; C.elementi = []; C.stanice = []; }
+        if (n.dataset.bind === 'brojStanica') C.stanice = [];
+        render();
+      });
+    });
+  }
+
+  const nav = (napred = true) => `<div class="nav">
+    ${korak > 0 ? `<button class="btn ghost" data-korak="${korak - 1}">← ${T('Назад')}</button>` : '<span></span>'}
+    ${napred && korak < KORACI.length - 1 ? `<button class="btn" data-korak="${korak + 1}">${T('Даље')} →</button>` : ''}</div>`;
+
+  function k1() {
+    app.innerHTML = `<h2>${T('Одељење')}</h2><p class="lead">${T('За кога правимо час и где се одржава.')}</p>
+      <div class="form">
+        <label class="f">${T('Година (средња школа)')}<select data-bind="godina">
+          ${[1,2,3,4].map(g => `<option value="${g}" ${C.godina === g ? 'selected' : ''}>${g}. ${T('година')}</option>`).join('')}</select></label>
+        <label class="f">${T('Одељење')}<input data-bind="odeljenje" value="${esc(C.odeljenje)}" placeholder="${T('нпр. I-3')}"></label>
+        <label class="f">${T('Број ученика')}<input type="number" min="4" max="40" data-bind="ucenika" value="${C.ucenika}"></label>
+        <label class="f">${T('Простор')}<select data-bind="prostor">
+          ${['сала', 'терен'].map(p => `<option value="${p}" ${C.prostor === p ? 'selected' : ''}>${T(p)}</option>`).join('')}</select></label>
+        <label class="f">${T('Датум')}<input type="date" data-bind="datum" value="${esc(C.datum)}"></label>
+      </div>` + nav();
+  }
+
+  function k2() {
+    const plan = K.planovi.find(p => p.godina === C.godina);
+    const L = lekcija();
+    app.innerHTML = `<h2>${T('Час из годишњег плана')}</h2>
+      <p class="lead">${T('Изаберите наставну јединицу — елементи се повлаче аутоматски.')} ${L ? `<b>${T('Изабрано')}: ${C.casRb}. ${T(L.tema)}</b>` : ''}</p>
+      <div class="lessons">${plan.casovi.map(c => {
+        const org = c.elementi.every(id => EL[id].sport === 'ostalo');
+        return `<button class="lesson" style="--c:${SP[c.sport].boja}" data-cas="${c.rb}" aria-pressed="${c.rb === C.casRb}">
+          <span class="sp"></span><span class="rb">${c.rb}.</span><span class="tx">${T(c.tema)}${org ? ` <span class="count">(${T('организационо')})</span>` : ''}</span></button>`;
+      }).join('')}</div>` + nav();
+    app.querySelector(`[data-cas="${C.casRb}"]`)?.scrollIntoView({ block: 'center' });
+  }
+
+  function k3() {
+    app.innerHTML = `<h2>${T('Прича')}</h2><p class="lead">${T('Тема која повезује станице у авантуру.')}</p>
+      <div class="cards">${PRICE.map(p => `<button class="pick" data-prica="${p.id}" aria-pressed="${p.id === C.prica}">
+        <b>${T(p.naziv)}</b><small>${T(p.uvod)}</small></button>`).join('')}</div>` + nav();
+  }
+
+  function k4() {
+    const vel = Math.ceil(C.ucenika / C.grupe);
+    const ukupno = Object.values(C.minuti).reduce((a, b) => a + b, 0);
+    app.innerHTML = `<h2>${T('Групе и време')}</h2><p class="lead">${T('Колико група и станица, и како се дели 45 минута.')}</p>
+      <div class="form">
+        <label class="f">${T('Број група')}<input type="number" min="2" max="8" data-bind="grupe" value="${C.grupe}"></label>
+        <label class="f">${T('Број станица')}<input type="number" min="2" max="8" data-bind="brojStanica" value="${C.brojStanica}"></label>
+        <label class="f">${T('Уводни део (мин)')}<input type="number" min="0" max="45" data-bind="minuti.uvodni" value="${C.minuti.uvodni}"></label>
+        <label class="f">${T('Припремни део (мин)')}<input type="number" min="0" max="45" data-bind="minuti.pripremni" value="${C.minuti.pripremni}"></label>
+        <label class="f">${T('Главни део (мин)')}<input type="number" min="5" max="45" data-bind="minuti.glavni" value="${C.minuti.glavni}"></label>
+        <label class="f">${T('Завршни део (мин)')}<input type="number" min="0" max="45" data-bind="minuti.zavrsni" value="${C.minuti.zavrsni}"></label>
+      </div>
+      <div class="box"><span>${T('Ученика по групи')}: <b>${vel}</b></span> · <span>${T('Минута по станици')}: <b>${minPoStanici()}</b> ${T('(укључујући 1 мин за прелаз)')}</span>
+        · <span>${T('Укупно')}: <b>${ukupno}</b> ${T('мин')}</span></div>
+      <div class="form">
+        <label class="f">${T('Игра за припремни део')}<select data-bind="zagrevanje"><option value="">${T('— само вежбе обликовања —')}</option>
+          ${igreKategorije('zagrevanje', 'paznja', 'inkluzivna').map(g => `<option value="${g.id}" ${C.zagrevanje === g.id ? 'selected' : ''}>${esc(imeIgre(g))} (${g.trajanje}′)</option>`).join('')}</select>
+          <span>${IG[C.zagrevanje] ? T(IG[C.zagrevanje].cilj) : ''}</span></label>
+        <label class="f">${T('Игра за завршни део / финале')}<select data-bind="finaleIgra"><option value="">${T('— без игре —')}</option>
+          ${igreKategorije('takmicenje', 'kooperativna', 'paznja', 'mini-izazov').map(g => `<option value="${g.id}" ${C.finaleIgra === g.id ? 'selected' : ''}>${esc(imeIgre(g))} (${g.trajanje}′)</option>`).join('')}</select>
+          <span>${IG[C.finaleIgra] ? T(IG[C.finaleIgra].cilj) : ''}</span></label>
+      </div>` + nav();
+  }
+
+  function k5() {
+    if (!C.stanice.length || C.stanice.length !== C.brojStanica) predloziStanice();
+    const L = lekcija();
+    const sport = C.elementi.map(id => EL[id].sport).find(s => s !== 'ostalo');
+    const izborEl = K.elementi.filter(e => e.sport !== 'ostalo' && (!sport || e.sport === sport || e.sport === 'kondicija'));
+    const sabloni = `<option value="">${T('Замени задатак…')}</option><option value="banka">${T('Други из банке')}</option>` +
+      Generator.SABLONI.map(s => `<option value="${s.id}">${T(s.naziv)}</option>`).join('');
+    app.innerHTML = `<h2>${T('Станице')}</h2>
+      <p class="lead">${T('Предлог је направљен из часа')} ${L ? `„${T(L.tema)}“` : ''}. ${T('Мењајте шта желите.')}
+        <button class="btn ghost small" id="predlog">${T('Нови предлог')}</button></p>
+      ${C.stanice.map((st, i) => {
+        const e = EL[st.element], z = prikaziZadatak(st.zadatak);
+        return `<div class="station" style="--c:${SP[e.sport].boja}">
+          <div class="st-head"><span class="st-num">${i + 1}</span><b>${esc(imeStanice(i))}</b>
+            <select data-el="${i}" style="width:auto;max-width:100%">${izborEl.map(x =>
+              `<option value="${x.id}" ${x.id === st.element ? 'selected' : ''}>${T(SP[x.sport].naziv)} · ${T(x.naziv)}</option>`).join('')}</select></div>
+          <div class="row" style="margin-bottom:8px">
+            <label class="count">${T('Игра')} <select data-igra="${i}" style="width:auto;max-width:100%"><option value="">${T('основна вежба из каталога')}</option>
+              ${igreZa(st.element).map(g => `<option value="${g.id}" ${st.igra === g.id ? 'selected' : ''}>${esc(imeIgre(g))}</option>`).join('')}</select></label>
+            <label class="count">${T('Капија')} <select data-kig="${i}" style="width:auto;max-width:100%"><option value="">${T('из вежбе')}</option>
+              ${igreKategorije('mini-izazov', 'kooperativna').map(g => `<option value="${g.id}" ${st.kapijaIgra === g.id ? 'selected' : ''}>${esc(imeIgre(g))}</option>`).join('')}</select></label>
+          </div>
+          <div class="st-grid">
+            <label class="f">${T('Кретање (вежба)')}<textarea data-kr="${i}">${esc(kretanje(st))}</textarea></label>
+            <label class="f">${T('Капија (услов за задатак)')}<textarea data-ka="${i}">${esc(kapija(st))}</textarea></label>
+          </div>
+          <div class="task"><div class="row"><span class="digit">${z.cifra}</span>
+            <span class="count">${T(TIP[z.tip] || z.tip)}${z.naziv ? ' · ' + esc(z.naziv) : ''}</span>
+            <select data-zad="${i}" style="width:auto">${sabloni}</select>
+            <button class="btn ghost small" data-novi="${i}">↻ ${T('Нови')}</button></div>
+            <div class="tx" style="margin-top:6px">${esc(z.tekst)}</div>${z.slika ? `<div class="slika">${z.slika}</div>` : ''}
+            <div class="count">${T('Одговор')}: <b>${esc(z.odgovor)}</b>${z.objasnjenje ? ' — ' + esc(z.objasnjenje) : ''}</div>
+          </div></div>`;
+      }).join('')}
+      <div class="box"><b>${T('Шифра')}: <span style="font-size:20px;letter-spacing:.2em">${kod()}</span></b>
+        <span class="count"> — ${T('тим је слаже по редним бројевима станица')}</span></div>` + nav();
+    app.querySelector('#predlog').onclick = () => { C.seed = Math.floor(Math.random() * 1e9); predloziStanice(); render(); };
+    app.querySelectorAll('[data-el]').forEach(s => s.onchange = () => {
+      const st = C.stanice[+s.dataset.el]; st.element = s.value; st.igra = null; st.kretanje = null; st.kapija = null; render(); });
+    app.querySelectorAll('[data-igra]').forEach(s => s.onchange = () => {
+      const st = C.stanice[+s.dataset.igra]; st.igra = s.value || null; st.kretanje = null; st.kapija = null; render(); });
+    app.querySelectorAll('[data-kig]').forEach(s => s.onchange = () => {
+      const st = C.stanice[+s.dataset.kig]; st.kapijaIgra = s.value || null; st.kapija = null; render(); });
+    app.querySelectorAll('[data-kr]').forEach(a => a.oninput = () => { C.stanice[+a.dataset.kr].kretanje = a.value; });
+    app.querySelectorAll('[data-ka]').forEach(a => a.oninput = () => { C.stanice[+a.dataset.ka].kapija = a.value; });
+    app.querySelectorAll('[data-zad]').forEach(s => s.onchange = () => { if (s.value) { zameniZadatak(+s.dataset.zad, s.value); render(); } });
+    app.querySelectorAll('[data-novi]').forEach(b => b.onclick = () => { zameniZadatak(+b.dataset.novi); render(); });
+  }
+
+  function rotacijaTabela() {
+    const krugovi = C.brojStanica;
+    return `<table><tr><th>${T('Група')}</th>${Array.from({ length: krugovi }, (_, r) =>
+      `<th>${r + 1}. ${T('круг')}<br><span class="count p-muted">${minPoStanici()} ${T('мин')}</span></th>`).join('')}</tr>
+      ${Array.from({ length: C.grupe }, (_, g) => `<tr><td><b>${T('Тим')} ${g + 1}</b></td>${Array.from({ length: krugovi }, (_, r) =>
+        `<td>${naStanici(g, r) + 1}. ${esc(imeStanice(naStanici(g, r)))}</td>`).join('')}</tr>`).join('')}</table>`;
+  }
+
+  function k6() {
+    if (!C.stanice.length) predloziStanice();
+    const w = upozorenja();
+    const L = lekcija();
+    app.innerHTML = `<h2>${T('Преглед и штампа')}</h2>
+      <p class="lead">${L ? `${C.godina}. ${T('година')} ${esc(C.odeljenje)} · ${T(L.tema)} · ${T(prica().naziv)}` : ''}</p>
+      <div class="box"><h3>${T('Провера')}</h3>
+        ${w.length ? w.map(x => `<div class="warn">${T(x)}</div>`).join('') : `<span class="okmsg">✓ ${T('Све је у реду.')}</span>`}</div>
+      <div class="box"><h3>${T('Ротација')}</h3><div style="overflow-x:auto">${rotacijaTabela()}</div></div>
+      <div class="twocol">
+        <div class="box"><h3>${T('Реквизити')}</h3><ul>${rekviziti().map(([r, st]) =>
+          `<li>${T(r)} <span class="count">(${T('станице')} ${st.join(', ')})</span></li>`).join('') || `<li>${T('нема посебних')}</li>`}
+          <li>${T('коверте са задацима')} (${C.brojStanica}), ${T('листови тимова')} (${C.grupe}), ${T('оловке')}, ${T('катанац са шифром или затворена коверта')}</li></ul></div>
+        <div class="box"><h3>${T('Шифра')}</h3><p style="font-size:28px;letter-spacing:.3em;margin:0"><b>${kod()}</b></p>
+          <p class="count">${T(prica().finale)}</p></div>
+      </div>
+      <div class="box"><h3>${T('Час уживо')}</h3><div class="row">
+        <button class="btn ok" id="uzivo" style="background:var(--ok);border-color:var(--ok);color:#fff">▶ ${T('Сачувај и покрени час уживо')}</button>
+        <span class="count">${T('Тајмер, ротација, бодови и провера шифре на телефону или таблету наставника.')}</span></div></div>
+      <div class="box"><h3>${T('Штампа')}</h3><div class="row">
+        <button class="btn" data-print="sve">${T('Све')}</button>
+        <button class="btn ghost" data-print="vodic">${T('Водич за наставника')}</button>
+        <button class="btn ghost" data-print="kartice">${T('Картице станица')}</button>
+        <button class="btn ghost" data-print="timovi">${T('Листови тимова')}</button></div></div>
+      <div class="box"><h3>${T('Чување')}</h3><div class="row">
+        <button class="btn ghost" id="izvoz">${T('Извези (.json)')}</button>
+        <label class="btn ghost" style="cursor:pointer">${T('Увези (.json)')}<input type="file" id="uvoz" accept=".json,application/json" hidden></label>
+        <span class="count">${T('Час се чува у овом прегледачу дугметом „Сачувај“; извоз служи за пренос на други уређај.')}</span></div></div>` + nav(false);
+    app.querySelectorAll('[data-print]').forEach(b => b.onclick = () => stampaj(b.dataset.print));
+    app.querySelector('#izvoz').onclick = izvezi;
+    app.querySelector('#uzivo').onclick = () => { sacuvaj(); location.href = 'uzivo.html?id=' + encodeURIComponent(C.id); };
+    app.querySelector('#uvoz').onchange = uvezi;
+  }
+
+  // ---------- štampa ----------
+  function igraOpis(id) {
+    const g = IG[id]; if (!g) return '';
+    return `<br><b>${T('Игра')}: ${T(g.naziv)}</b> (${g.trajanje}′) — ${g.pravila.map(T).join(' ')}${g.bezbednost ? ` <i>${T('Безбедност')}: ${T(g.bezbednost)}</i>` : ''}`;
+  }
+
+  function stampaj(sta) {
+    const L = lekcija(), P = prica();
+    const naslov = `${C.godina}. ${t('година')} ${esc(C.odeljenje)} · ${esc(C.datum)}`;
+    const elementiNazivi = C.elementi.filter(id => EL[id].sport !== 'ostalo').map(id => T(EL[id].naziv)).join(', ');
+    let h = '';
+    if (sta === 'sve' || sta === 'vodic') {
+      h += `<section class="pg"><h1 class="p">${T(P.naziv)}</h1>
+        <p><b>${T('Наставна јединица')}:</b> ${L ? T(L.tema) : '—'}<br><b>${T('Одељење')}:</b> ${naslov} · ${C.ucenika} ${T('ученика')} · ${C.grupe} ${T('тима')} · ${T(C.prostor)}</p>
+        <table>
+          <tr><th style="width:22%">${T('Део часа')}</th><th>${T('Садржај')}</th></tr>
+          <tr><td>${T('Уводни')} (${C.minuti.uvodni} ${T('мин')})</td><td>${T('Постројавање, подела у тимове. Прочитати причу:')}<br><i>„${T(P.uvod)}“</i></td></tr>
+          <tr><td>${T('Припремни')} (${C.minuti.pripremni} ${T('мин')})</td><td>${T('Вежбе обликовања и специфично загревање за')}: ${elementiNazivi || '—'}.${igraOpis(C.zagrevanje)}</td></tr>
+          <tr><td>${T('Главни')} (${C.minuti.glavni} ${T('мин')})</td><td>${C.brojStanica} ${T('станица по')} ${minPoStanici()} ${T('мин; тим на станици изводи вежбу, испуњава капију и тек тада добија коверту са задатком. Решење = цифра (траг).')}</td></tr>
+          <tr><td>${T('Завршни')} (${C.minuti.zavrsni} ${T('мин')})</td><td>${T(P.finale)} ${T(P.kraj)} ${T('Истезање и кратак разговор: шта смо научили о елементу и шта је тиму помогло да реши задатке?')}${igraOpis(C.finaleIgra)}</td></tr>
+        </table>
+        <h2 class="p" style="margin-top:6mm">${T('Станице и решења')}</h2>
+        <table><tr><th>№</th><th>${T('Станица / елемент')}</th><th>${T('Вежба и капија')}</th><th>${T('Задатак')}</th><th>${T('Одговор')}</th><th>${T('Траг')}</th></tr>
+        ${C.stanice.map((s, i) => { const z = prikaziZadatak(s.zadatak); return `<tr><td>${i + 1}</td>
+          <td><b>${esc(imeStanice(i))}</b><br>${T(EL[s.element].naziv)}</td>
+          <td>${esc(kretanje(s))}<br><i>${T('Капија')}: ${esc(kapija(s))}</i>${s.kapijaIgra && s.kapija == null ? `<br><span class="p-muted">${IG[s.kapijaIgra].pravila.map(T).join(' ')}</span>` : ''}</td>
+          <td style="white-space:pre-line">${esc(z.tekst)}${z.slika ? `<div class="slika">${z.slika}</div>` : ''}${z.materijal ? `<br><i>${esc(z.materijal)}</i>` : ''}</td>
+          <td><b>${esc(z.odgovor)}</b>${z.nagovestaji?.length ? `<br><span class="p-muted">${T('Наговештај')}: ${esc(z.nagovestaji[0])}</span>` : ''}</td>
+          <td style="font-size:16pt;text-align:center"><b>${z.cifra}</b></td></tr>`; }).join('')}</table>
+        <p><b>${T('Шифра')}: <span style="font-size:18pt;letter-spacing:.3em">${kod()}</span></b></p>
+        <h2 class="p">${T('Ротација')}</h2>${rotacijaTabela()}
+        <p><b>${T('Реквизити')}:</b> ${rekviziti().map(([r, st]) => `${T(r)} (${st.join(', ')})`).join('; ')}</p></section>`;
+    }
+    if (sta === 'sve' || sta === 'kartice') {
+      h += C.stanice.map((s, i) => { const e = EL[s.element], z = prikaziZadatak(s.zadatak); return `<section class="pg"><div class="p-card">
+        <div class="p-muted">${T(P.naziv)}</div>
+        <div class="p-num">${i + 1}</div><h1 class="p">${esc(imeStanice(i))}</h1>
+        <p><b>${T(e.naziv)}</b></p>
+        ${s.igra && IG[s.igra] && s.kretanje == null
+          ? `<p style="font-size:14pt"><b>${T(IG[s.igra].naziv)}</b></p><ol style="font-size:12pt">${IG[s.igra].pravila.map(x => `<li>${T(x)}</li>`).join('')}</ol>${IG[s.igra].bezbednost ? `<p class="p-muted">⚠ ${T(IG[s.igra].bezbednost)}</p>` : ''}`
+          : `<p style="font-size:14pt">${esc(kretanje(s))}</p>`}
+        ${s.kapijaIgra && s.kapija == null ? `<p class="p-muted">${T(IG[s.kapijaIgra].naziv)}: ${IG[s.kapijaIgra].pravila.map(T).join(' ')}</p>` : ''}
+        ${e.kljucneTacke.length ? `<p class="p-muted">${T('Пазите на')}: ${e.kljucneTacke.slice(0, 3).map(T).join(' · ')}</p>` : ''}
+        <p style="font-size:13pt"><b>${T('Капија')}:</b> ${esc(kapija(s))}</p>
+        <div class="p-cut">✂ ${T('исећи — доњи део у коверту; тим је добија тек када прође капију')}</div>
+        <div class="p-muted">${T('Станица')} ${i + 1} · ${T('задатак')}</div>
+        <p class="p-task">${esc(z.tekst)}</p>${z.slika ? `<div class="slika">${z.slika}</div>` : ''}${z.materijal ? `<p class="p-muted">${esc(z.materijal)}</p>` : ''}
+        <p>${T('Ваш траг')}: ______</p></div></section>`; }).join('');
+    }
+    if (sta === 'sve' || sta === 'timovi') {
+      h += Array.from({ length: C.grupe }, (_, g) => `<section class="pg">
+        <div class="p-muted">${T(P.naziv)} · ${naslov}</div>
+        <h1 class="p">${T('Тим')} ${g + 1}</h1>
+        <p>${T(P.uvod)}</p>
+        <p><b>${T('Ваш редослед станица')}:</b> ${Array.from({ length: C.brojStanica }, (_, r) => naStanici(g, r) + 1).join(' → ')}</p>
+        <table><tr><th>${T('Станица')}</th><th>${T('Назив')}</th><th style="width:35%">${T('Траг (цифра)')}</th></tr>
+          ${C.stanice.map((_, i) => `<tr><td>${i + 1}</td><td>${esc(imeStanice(i))}</td><td style="height:12mm"></td></tr>`).join('')}</table>
+        <p style="margin-top:6mm"><b>${T('Шифра')}</b> — ${T('упишите трагове по броју станице, не по редоследу обиласка')}:</p>
+        <div class="p-code">${C.stanice.map((_, i) => `<div>${i + 1}</div>`).join('')}</div>
+        <p>${T(P.finale)}</p>
+        <p class="p-muted">${T('Чланови тима')}: ____________________________________________</p></section>`).join('');
+    }
+    document.getElementById('print').innerHTML = h;
+    window.print();
+  }
+
+  // ---------- čuvanje ----------
+  function casovi() { return store.get('casovi', {}); }
+  function renderMoji() {
+    const sve = Object.values(casovi()).sort((a, b) => (b.izmenjeno || 0) - (a.izmenjeno || 0));
+    const sel = document.getElementById('moji');
+    sel.innerHTML = `<option value="">${T('Моји часови')} (${sve.length})</option>` + sve.map(c => {
+      const L = K.planovi.find(p => p.godina === c.godina)?.casovi.find(x => x.rb === c.casRb);
+      return `<option value="${c.id}" ${c.id === C.id ? 'selected' : ''}>${esc(c.datum)} · ${c.godina}. ${esc(c.odeljenje)} · ${L ? T(L.tema).slice(0, 40) : '—'}</option>`;
+    }).join('');
+  }
+  function sacuvaj() {
+    const sve = casovi(); C.izmenjeno = Date.now(); sve[C.id] = C;
+    if (store.set('casovi', sve)) { renderMoji(); flash(t('Сачувано.')); } else alert(t('Чување није успело (прегледач блокира складиште). Користите извоз.'));
+  }
+  function flash(msg) {
+    const b = document.getElementById('sacuvaj'); const old = b.textContent; b.textContent = '✓ ' + msg;
+    setTimeout(() => b.textContent = old, 1400);
+  }
+  function izvezi() {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(C, null, 1)], { type: 'application/json' }));
+    a.download = `cas-${C.datum}-${C.godina}-${(C.odeljenje || 'odeljenje').replace(/\W+/g, '')}.json`;
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  function uvezi(ev) {
+    const f = ev.target.files[0]; if (!f) return;
+    f.text().then(txt => {
+      try { const c = JSON.parse(txt); if (!c.stanice || !c.minuti) throw 0; C = c; korak = 5; render(); }
+      catch { alert(t('Фајл није исправан извоз часа.')); }
+    });
+  }
+
+  // ---------- događaji ----------
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.p) { pismo = b.dataset.p; store.set('pismo-cas', pismo); render(); }
+    else if (b.dataset.korak !== undefined) { korak = +b.dataset.korak; render(); window.scrollTo(0, 0); }
+    else if (b.dataset.cas) { const L = K.planovi.find(p => p.godina === C.godina).casovi.find(c => c.rb === +b.dataset.cas);
+      C.casRb = L.rb; C.elementi = L.elementi; C.stanice = []; render(); }
+    else if (b.dataset.prica) { C.prica = b.dataset.prica; render(); }
+  });
+  document.getElementById('sacuvaj').onclick = sacuvaj;
+  document.getElementById('nov').onclick = () => { C = noviCas(); korak = 0; render(); };
+  document.getElementById('moji').onchange = e => { const c = casovi()[e.target.value]; if (c) { C = c; korak = 4; render(); } };
+  window.addEventListener('afterprint', () => { document.getElementById('print').innerHTML = ''; });
+  const trazeni = new URLSearchParams(location.search).get('id');
+  if (trazeni && casovi()[trazeni]) { C = casovi()[trazeni]; korak = 4; }
+  render();
+})();
+</script>
+<script src="src/pwa.js"></script>
+</body>
+</html>

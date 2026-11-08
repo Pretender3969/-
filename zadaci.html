@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Банка задатака</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2b8a3e">
+<link rel="icon" href="ikone/ikona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="ikone/ikona-192.png">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #e4e2dc;
+    --chip: #efede8; --accent: #1971c2; --ok: #2b8a3e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ecebe7; --muted: #a09e98; --line: #34332f; --chip: #2c2b28;
+      --accent: #4dabf7; --ok: #51cf66;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 1100px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  h1 { font-size: 18px; margin: 0; flex: 1 1 auto; }
+  h1 a { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 8px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--text); padding: 6px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .chip { border: 1px solid var(--line); background: var(--chip); color: var(--text); border-radius: 999px;
+          padding: 4px 12px; cursor: pointer; font: inherit; font-size: 14px; }
+  .chip[aria-pressed="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+  input, select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+          color: var(--text); font: inherit; min-width: 0; }
+  input[type=search] { flex: 1 1 200px; }
+  label { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font-size: 14px; }
+  .count { color: var(--muted); font-size: 13px; }
+  .btn { border: 1px solid var(--text); background: var(--text); color: var(--surface); border-radius: 8px;
+         padding: 7px 14px; cursor: pointer; font: inherit; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+  .list { display: grid; gap: 10px; }
+  .task { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .meta { display: flex; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .tag { background: var(--chip); border-radius: 4px; padding: 1px 7px; }
+  .tag.cifra { background: var(--ok); color: #fff; }
+  .text { white-space: pre-line; font-size: 16px; }
+  .text .mono { font-family: ui-monospace, Consolas, monospace; letter-spacing: .08em; }
+  details { margin-top: 8px; font-size: 14px; }
+  summary { cursor: pointer; color: var(--accent); }
+  .ans { margin-top: 6px; padding: 8px 10px; background: var(--chip); border-radius: 6px; }
+  .ans b { color: var(--ok); }
+  /* generator */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 14px;
+           display: flex; gap: 14px; flex-wrap: wrap; align-items: end; }
+  .panel input.code { width: 9ch; font-size: 22px; letter-spacing: .2em; text-align: center; font-weight: 700; }
+  .station { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: start; }
+  .num { width: 56px; height: 56px; border-radius: 10px; background: var(--text); color: var(--surface);
+         display: grid; place-items: center; font-size: 13px; text-align: center; line-height: 1.1; }
+  .num b { font-size: 22px; display: block; }
+  .row-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .row-actions select, .row-actions button { font-size: 13px; padding: 4px 8px; }
+  .key { margin-top: 16px; background: var(--surface); border: 1px dashed var(--muted); border-radius: 10px; padding: 12px 14px; }
+  .print-only { display: none; }
+  @media print {
+    header, .panel, .row-actions, .no-print { display: none !important; }
+    body { background: #fff; color: #000; }
+    .print-only { display: block; }
+    .task { break-inside: avoid; border: 2px solid #000; margin-bottom: 12mm; padding: 8mm; }
+    .num { background: #000; color: #fff; }
+    details { display: none; }
+    .key { break-before: page; border: 1px solid #000; }
+  }
+  .slika { margin: 8px 0; overflow-x: auto; color: inherit; }
+  .slika svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1><a href="index.html" title="Почетна" style="text-decoration:none;margin-right:8px;font-size:18px" aria-label="Почетна">⌂</a><span data-t="Мисаони задаци">Мисаони задаци</span><a href="katalog.html" data-t="Каталог елемената →">Каталог елемената →</a><a href="cas.html" data-t="Градитељ часа →">Градитељ часа →</a></h1>
+    <div class="seg" id="tabs">
+      <button data-tab="banka" aria-pressed="true" data-t="Банка">Банка</button>
+      <button data-tab="sifra" aria-pressed="false" data-t="Генератор шифре">Генератор шифре</button>
+    </div>
+    <div class="seg" id="pismo">
+      <button data-p="cir" aria-pressed="true">Ћир</button>
+      <button data-p="lat" aria-pressed="false">Lat</button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+
+<script src="src/translit.js"></script>
+<script src="src/generator.js"></script>
+<script src="data/zadaci-data.js"></script>
+<script>
+(() => {
+  const Z = window.ZADACI;
+  const tipNaziv = Object.fromEntries(Z.tipovi.map(t => [t.id, t.naziv]));
+  const SABLON_TIP = Object.fromEntries(Generator.SABLONI.map(s => [s.id, s]));
+  const store = {
+    get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch {} }
+  };
+  const S = {
+    pismo: store.get('pismo', 'cir'), tab: store.get('zadaci-tab', 'banka'),
+    tip: 'sve', razred: 'sve', tezina: 'sve', q: '', samoCifra: false,
+    kod: store.get('zadaci-kod', '9487'), genRazred: +store.get('zadaci-razred', '10'), udeo: 0.4,
+    seed: 1 + Math.floor(Math.random() * 1e6), sifra: null
+  };
+  const t = s => Translit.pismo(s, S.pismo);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const T = s => esc(t(s));
+  const app = document.getElementById('app');
+
+  function razredNaziv(r) { return r <= 8 ? `${r}. ${t('р. ОШ')}` : `${r - 8}. ${t('р. СШ')}`; }
+  function raspon([a, b]) { return a === b ? razredNaziv(a) : `${razredNaziv(a)} – ${razredNaziv(b)}`; }
+  const RAZREDI = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  function render() {
+    document.querySelectorAll('[data-t]').forEach(n => n.textContent = t(n.dataset.t));
+    document.title = t(S.tab === 'banka' ? 'Банка задатака' : 'Генератор шифре');
+    document.querySelectorAll('#pismo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === S.pismo));
+    document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.tab === S.tab));
+    S.tab === 'banka' ? renderBanka() : renderSifra();
+  }
+
+  function kartica(z, extra = '') {
+    return `<article class="task">
+      <div class="meta">${extra}
+        <span class="tag">${T(tipNaziv[z.tip] || z.tip)}</span>
+        ${z.razredi ? `<span class="tag">${esc(raspon(z.razredi))}</span>` : ''}
+        ${z.tezina ? `<span class="tag">${'●'.repeat(z.tezina)}${'○'.repeat(5 - z.tezina)}</span>` : ''}
+        ${z.minuta ? `<span class="tag">~${z.minuta} ${T('мин')}</span>` : ''}
+        ${z.cifra !== undefined ? `<span class="tag cifra">${T('цифра')} ${z.cifra}</span>` : ''}
+        ${z.sablon ? `<span class="tag">${T('шаблон')}: ${esc(z.naziv)}</span>` : ''}
+      </div>
+      ${z.materijal ? `<p class="count">${T('Материјал')}: ${T(z.materijal)}</p>` : ''}
+      <div class="text">${z.izvor ? esc(z.tekst) : T(z.tekst)}</div>${z.slika ? `<div class="slika">${z.slika}</div>` : ''}
+      <details><summary>${T('Решење и наговештаји')}</summary><div class="ans">
+        <div>${T('Одговор')}: <b>${z.izvor ? esc(z.odgovor) : T(z.odgovor)}</b>${z.prihvatljivo?.length ? ` <span class="count">(${T('прихвата се и')}: ${T(z.prihvatljivo.join(', '))})</span>` : ''}</div>
+        ${z.objasnjenje ? `<div>${z.izvor ? esc(z.objasnjenje) : T(z.objasnjenje)}</div>` : ''}
+        ${z.nagovestaji?.length ? `<div class="count">${T('Наговештаји')}: ${(z.izvor ? z.nagovestaji.map(esc) : z.nagovestaji.map(T)).join(' · ')}</div>` : ''}
+      </div></details>
+    </article>`;
+  }
+
+  function renderBanka() {
+    const q = S.q.trim().toLowerCase();
+    const lista = Z.zadaci.filter(z =>
+      (S.tip === 'sve' || z.tip === S.tip) &&
+      (S.razred === 'sve' || (+S.razred >= z.razredi[0] && +S.razred <= z.razredi[1])) &&
+      (S.tezina === 'sve' || z.tezina === +S.tezina) &&
+      (!S.samoCifra || z.cifra !== undefined) &&
+      (!q || [z.tekst, z.odgovor].some(x => x.toLowerCase().includes(q) || Translit.uLatinicu(x).toLowerCase().includes(q))));
+    app.innerHTML = `
+      <div class="filters">
+        <button class="chip" data-tip="sve" aria-pressed="${S.tip === 'sve'}">${T('Сви типови')}</button>
+        ${Z.tipovi.map(x => `<button class="chip" data-tip="${x.id}" aria-pressed="${S.tip === x.id}">${T(x.naziv)}</button>`).join('')}
+      </div>
+      <div class="filters">
+        <select id="f-razred"><option value="sve">${T('Сви разреди')}</option>
+          ${RAZREDI.map(r => `<option value="${r}" ${S.razred == r ? 'selected' : ''}>${esc(razredNaziv(r))}</option>`).join('')}</select>
+        <select id="f-tezina"><option value="sve">${T('Свака тежина')}</option>
+          ${[1,2,3,4,5].map(n => `<option value="${n}" ${S.tezina == n ? 'selected' : ''}>${'●'.repeat(n)}</option>`).join('')}</select>
+        <label><input type="checkbox" id="f-cifra" ${S.samoCifra ? 'checked' : ''}> ${T('само са цифром (за шифру)')}</label>
+        <input type="search" id="q" placeholder="${T('Претрага…')}" value="${esc(S.q)}">
+        <span class="count">${lista.length} / ${Z.zadaci.length}</span>
+      </div>
+      <div class="list">${lista.map(z => kartica(z)).join('') || `<p class="count">${T('Нема резултата.')}</p>`}</div>`;
+    document.getElementById('f-razred').onchange = e => { S.razred = e.target.value; renderBanka(); };
+    document.getElementById('f-tezina').onchange = e => { S.tezina = e.target.value; renderBanka(); };
+    document.getElementById('f-cifra').onchange = e => { S.samoCifra = e.target.checked; renderBanka(); };
+    const qi = document.getElementById('q');
+    qi.oninput = () => { S.q = qi.value; renderBanka(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+  }
+
+  function napraviSifru() {
+    S.sifra = Generator.sifra(S.kod, { razred: S.genRazred, pismo: S.pismo, seed: S.seed, banka: Z.zadaci, udeoBanke: S.udeo });
+  }
+
+  function zameni(i, sablonId) {
+    const d = S.sifra[i].cifra, nivo = Generator.nivoZaRazred(S.genRazred), seed = Math.floor(Math.random() * 1e9);
+    let z = null;
+    if (sablonId === 'banka') {
+      const moguci = Z.zadaci.filter(x => x.cifra === d && S.genRazred >= x.razredi[0] && S.genRazred <= x.razredi[1]);
+      if (moguci.length) {
+        const x = moguci[seed % moguci.length];
+        z = { izvor: 'banka', id: x.id, tip: x.tip, tekst: t(x.tekst), odgovor: t(x.odgovor), cifra: d,
+              objasnjenje: t(x.objasnjenje || ''), nagovestaji: (x.nagovestaji || []).map(t) };
+      }
+    } else {
+      z = Generator.generisi(sablonId, d, { nivo, pismo: S.pismo, seed });
+    }
+    if (!z) { alert(t('Овај шаблон не подржава ову цифру/ниво.')); return; }
+    S.sifra[i] = { stanica: i + 1, ...z };
+    renderSifra();
+  }
+
+  function renderSifra() {
+    if (!S.sifra) napraviSifru();
+    const opcije = `<option value="">${T('Замени…')}</option><option value="banka">${T('Из банке')}</option>` +
+      Generator.SABLONI.map(s => `<option value="${s.id}">${T(s.naziv)}</option>`).join('');
+    const kod = S.sifra.map(z => z.cifra).join('');
+    app.innerHTML = `
+      <div class="panel">
+        <label>${T('Шифра (цифре)')}<input class="code" id="g-kod" inputmode="numeric" maxlength="8" value="${esc(S.kod)}"></label>
+        <label>${T('Разред')}<select id="g-razred">${RAZREDI.map(r => `<option value="${r}" ${S.genRazred === r ? 'selected' : ''}>${esc(razredNaziv(r))}</option>`).join('')}</select></label>
+        <label>${T('Задаци из банке')}<select id="g-udeo">
+          ${[[0, 'ниједан'], [0.4, 'понеки'], [1, 'што више']].map(([v, n]) => `<option value="${v}" ${S.udeo === v ? 'selected' : ''}>${T(n)}</option>`).join('')}</select></label>
+        <button class="btn" id="g-nova">${T('Генериши поново')}</button>
+        <button class="btn ghost" id="g-print">${T('Штампај картице')}</button>
+      </div>
+      <p class="count no-print">${T('Свака станица даје једну цифру. Тим на крају слаже цифре редом станица и отвара катанац/коверту.')}</p>
+      <div class="list">${S.sifra.map((z, i) => `
+        <div class="task"><div class="station">
+          <div class="num">${T('Станица')}<b>${z.stanica}</b></div>
+          <div>${kartica(z).replace(/^<article class="task">|<\/article>$/g, '')}
+            <div class="row-actions"><select data-zameni="${i}">${opcije}</select></div>
+            <p class="print-only">${T('Траг')}: ______</p>
+          </div></div></div>`).join('')}
+      </div>
+      <div class="key"><b>${T('Кључ за наставника')}</b> — ${T('шифра')}: <b style="font-size:20px;letter-spacing:.2em">${esc(kod)}</b>
+        <ol>${S.sifra.map(z => `<li>${T(tipNaziv[z.tip] || z.tip)} → <b>${esc(z.odgovor)}</b> (${T('цифра')} ${z.cifra})</li>`).join('')}</ol></div>`;
+    const kodIn = document.getElementById('g-kod');
+    kodIn.onchange = () => { const v = kodIn.value.replace(/\D/g, '').slice(0, 8); if (!v) return;
+      S.kod = v; store.set('zadaci-kod', v); S.sifra = null; renderSifra(); };
+    document.getElementById('g-razred').onchange = e => { S.genRazred = +e.target.value; store.set('zadaci-razred', S.genRazred); S.sifra = null; renderSifra(); };
+    document.getElementById('g-udeo').onchange = e => { S.udeo = +e.target.value; S.sifra = null; renderSifra(); };
+    document.getElementById('g-nova').onclick = () => { S.seed = Math.floor(Math.random() * 1e9); S.sifra = null; renderSifra(); };
+    document.getElementById('g-print').onclick = () => window.print();
+    document.querySelectorAll('[data-zameni]').forEach(sel => sel.onchange = () => sel.value && zameni(+sel.dataset.zameni, sel.value));
+  }
+
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.p) { S.pismo = b.dataset.p; store.set('pismo', S.pismo); S.sifra = null; render(); }
+    else if (b.dataset.tab) { S.tab = b.dataset.tab; store.set('zadaci-tab', S.tab); render(); }
+    else if (b.dataset.tip) { S.tip = b.dataset.tip; renderBanka(); }
+  });
+  render();
+})();
+</script>
+<script src="src/pwa.js"></script>
+</body>
+</html>

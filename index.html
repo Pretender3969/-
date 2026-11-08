@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Покрени ум</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2b8a3e">
+<link rel="icon" href="ikone/ikona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="ikone/ikona-192.png">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #e4e2dc;
+    --chip: #efede8; --brand: #2b8a3e; --ok: #2b8a3e; --warn: #c2410c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ecebe7; --muted: #a09e98; --line: #34332f; --chip: #2c2b28;
+      --ok: #51cf66; --warn: #ffa94d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 40px; }
+  .top { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+  .top img { width: 56px; height: 56px; }
+  .top h1 { margin: 0; font-size: 24px; flex: 1 1 auto; }
+  .top h1 small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--text); padding: 6px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .tile { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px;
+          color: inherit; text-decoration: none; border-top: 5px solid var(--c); }
+  .tile:hover { border-color: var(--c); }
+  .tile .ic { font-size: 28px; line-height: 1; }
+  .tile b { display: block; font-size: 17px; margin: 8px 0 4px; }
+  .tile span { color: var(--muted); font-size: 14px; }
+  .box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .box h2 { font-size: 16px; margin: 0 0 8px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .btn { border: 1px solid var(--text); background: var(--text); color: var(--surface); border-radius: 8px; padding: 7px 14px;
+         cursor: pointer; font: inherit; text-decoration: none; display: inline-block; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+  .btn.brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .count { color: var(--muted); font-size: 13px; }
+  ul.casovi { list-style: none; padding: 0; margin: 0; }
+  ul.casovi li { display: flex; gap: 8px; align-items: center; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+  ul.casovi li:first-child { border-top: 0; }
+  .st { display: flex; gap: 8px; align-items: baseline; margin: 4px 0; }
+  .st .d { width: 18px; text-align: center; font-weight: 700; }
+  .ok { color: var(--ok); } .no { color: var(--warn); }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <img src="ikone/ikona.svg" alt="">
+    <h1><span data-t="Покрени ум">Покрени ум</span><small data-t="Физичко васпитање као авантура: кретање, загонетке и шифра">Физичко васпитање као авантура: кретање, загонетке и шифра</small></h1>
+    <div class="seg" id="pismo"><button data-p="cir" aria-pressed="true">Ћир</button><button data-p="lat" aria-pressed="false">Lat</button></div>
+  </div>
+
+  <div class="tiles">
+    <a class="tile" href="cas.html" style="--c:#2b8a3e"><div class="ic">🧩</div><b data-t="Градитељ часа">Градитељ часа</b><span data-t="Час из плана → прича, станице, задаци и штампа.">Час из плана → прича, станице, задаци и штампа.</span></a>
+    <a class="tile" href="uzivo.html" style="--c:#e8590c"><div class="ic">⏱️</div><b data-t="Час уживо">Час уживо</b><span data-t="Тајмер, ротација, бодови и провера шифре.">Тајмер, ротација, бодови и провера шифре.</span></a>
+    <a class="tile" href="katalog.html" style="--c:#1971c2"><div class="ic">📚</div><b data-t="Каталог и игре">Каталог и игре</b><span data-t="Елементи из плана, годишњи планови и библиотека игара.">Елементи из плана, годишњи планови и библиотека игара.</span></a>
+    <a class="tile" href="zadaci.html" style="--c:#9c36b5"><div class="ic">🔐</div><b data-t="Мисаони задаци">Мисаони задаци</b><span data-t="Банка задатака и генератор шифре.">Банка задатака и генератор шифре.</span></a>
+  </div>
+
+  <div class="box"><h2 data-t="Моји часови">Моји часови</h2><ul class="casovi" id="casovi"></ul></div>
+
+  <div class="box"><h2 data-t="Апликација">Апликација</h2>
+    <div id="stanje"></div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn brand" id="instaliraj" hidden data-t="Инсталирај на уређај">Инсталирај на уређај</button>
+      <span class="count" id="ios" hidden data-t="На iPhone/iPad: Подели → „Додај на почетни екран“.">На iPhone/iPad: Подели → „Додај на почетни екран“.</span>
+    </div>
+  </div>
+
+  <div class="box"><h2 data-t="Резервна копија">Резервна копија</h2>
+    <p class="count" style="margin-top:0" data-t="Часови и бодови се чувају само на овом уређају. Извезите копију повремено или да бисте их пренели на други уређај.">Часови и бодови се чувају само на овом уређају. Извезите копију повремено или да бисте их пренели на други уређај.</p>
+    <div class="row">
+      <button class="btn ghost" id="izvoz" data-t="Извези све (.json)">Извези све (.json)</button>
+      <label class="btn ghost" style="cursor:pointer"><span data-t="Увези копију">Увези копију</span><input type="file" id="uvoz" accept=".json,application/json" hidden></label>
+      <span class="count" id="poruka"></span>
+    </div>
+  </div>
+</main>
+
+<script src="src/translit.js"></script>
+<script src="data/katalog-data.js"></script>
+<script src="src/pwa.js"></script>
+<script>
+(() => {
+  const K = window.KATALOG;
+  const ls = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+    keys() { try { return Object.keys(localStorage); } catch { return []; } }
+  };
+  let pismo = ls.get('pismo-cas', 'cir');
+  const t = s => Translit.pismo(s, pismo);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const T = s => esc(t(s));
+
+  function render() {
+    document.querySelectorAll('[data-t]').forEach(n => n.textContent = t(n.dataset.t));
+    document.title = t('Покрени ум');
+    document.querySelectorAll('#pismo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === pismo));
+    const sve = Object.values(ls.get('casovi', {})).sort((a, b) => (b.izmenjeno || 0) - (a.izmenjeno || 0));
+    document.getElementById('casovi').innerHTML = sve.length ? sve.slice(0, 8).map(c => {
+      const L = K.planovi.find(p => p.godina === c.godina)?.casovi.find(x => x.rb === c.casRb);
+      return `<li><span>${esc(c.datum)} · <b>${c.godina}. ${esc(c.odeljenje)}</b> · ${L ? T(L.tema) : '—'}</span>
+        <span class="row"><a class="btn ghost" href="cas.html?id=${encodeURIComponent(c.id)}">${T('Уреди')}</a>
+        <a class="btn" href="uzivo.html?id=${encodeURIComponent(c.id)}">▶ ${T('Уживо')}</a></span></li>`;
+    }).join('') + (sve.length > 8 ? `<li class="count">${T('и још')} ${sve.length - 8}…</li>` : '')
+      : `<li class="count">${T('Још нема сачуваних часова — почните у градитељу часа.')}</li>`;
+    stanje();
+  }
+
+  async function stanje() {
+    const red = (ok, tekst) => `<div class="st"><span class="d ${ok ? 'ok' : 'no'}">${ok ? '✓' : '!'}</span><span>${T(tekst)}</span></div>`;
+    let h = '';
+    const sw = 'serviceWorker' in navigator && /^https?:$/.test(location.protocol);
+    if (!sw) h += red(false, location.protocol === 'file:'
+      ? 'Отворено као фајл — рад без интернета и поуздано чување раде тек када се апликација отвори са веб адресе.'
+      : 'Овај прегледач не подржава рад без интернета.');
+    else {
+      const reg = await navigator.serviceWorker.getRegistration().catch(() => null);
+      h += red(!!(reg && (reg.active || navigator.serviceWorker.controller)), reg?.active ? 'Ради без интернета (све је сачувано на уређају).' : 'Припрема за рад без интернета… (освежите страницу)');
+    }
+    try {
+      const trajno = await navigator.storage?.persisted?.();
+      h += red(!!trajno, trajno ? 'Трајно чување је укључено.' : 'Трајно чување није потврђено — повремено извезите резервну копију.');
+    } catch {}
+    const instalirana = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (instalirana) h += red(true, 'Покренуто као инсталирана апликација.');
+    document.getElementById('stanje').innerHTML = h;
+    document.getElementById('ios').hidden = instalirana || !/iPhone|iPad|iPod/.test(navigator.userAgent);
+  }
+
+  // osveži status kada service worker postane aktivan
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(() => stanje()).catch(() => {});
+    navigator.serviceWorker.addEventListener('controllerchange', () => stanje());
+  }
+
+  let odlozeno = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); odlozeno = e; document.getElementById('instaliraj').hidden = false; });
+  document.getElementById('instaliraj').onclick = async () => {
+    if (!odlozeno) return; odlozeno.prompt(); await odlozeno.userChoice; odlozeno = null;
+    document.getElementById('instaliraj').hidden = true; stanje();
+  };
+
+  // rezervna kopija: časovi, stanja časova uživo i podešavanja
+  const NASI = k => k === 'casovi' || k.startsWith('uzivo-') || k.startsWith('pismo') || k.startsWith('zadaci-');
+  document.getElementById('izvoz').onclick = () => {
+    const podaci = {}; ls.keys().filter(NASI).forEach(k => podaci[k] = ls.get(k, null));
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify({ aplikacija: 'pokreni-um', verzija: 1, datum: new Date().toISOString(), podaci }, null, 1)], { type: 'application/json' }));
+    a.download = `pokreni-um-kopija-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  document.getElementById('uvoz').onchange = ev => {
+    const f = ev.target.files[0]; if (!f) return;
+    f.text().then(txt => {
+      const msg = document.getElementById('poruka');
+      try {
+        const j = JSON.parse(txt);
+        if (j.aplikacija !== 'pokreni-um' || !j.podaci) throw 0;
+        // časovi se spajaju (isti id → novija verzija), ostalo se prepisuje
+        const postojeci = ls.get('casovi', {});
+        const novi = j.podaci.casovi || {};
+        for (const [id, c] of Object.entries(novi)) if (!postojeci[id] || (c.izmenjeno || 0) >= (postojeci[id].izmenjeno || 0)) postojeci[id] = c;
+        ls.set('casovi', postojeci);
+        Object.entries(j.podaci).filter(([k]) => k !== 'casovi' && NASI(k)).forEach(([k, v]) => ls.set(k, v));
+        msg.textContent = t('Увезено часова') + ': ' + Object.keys(novi).length; render();
+      } catch { msg.textContent = t('Фајл није исправна резервна копија.'); }
+      ev.target.value = '';
+    });
+  };
+
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('[data-p]'); if (!b) return;
+    pismo = b.dataset.p; ls.set('pismo-cas', pismo); render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

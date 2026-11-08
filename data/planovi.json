@@ -1,0 +1,2220 @@
+{
+ "verzija": 1,
+ "planovi": [
+  {
+   "godina": 1,
+   "naziv": "Прва Година",
+   "casovi": [
+    {
+     "rb": 1,
+     "tema": "Упознавање ученика са планом и програмом рада",
+     "sport": "kondicija",
+     "elementi": [
+      "org-uvod"
+     ]
+    },
+    {
+     "rb": 2,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 3,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 4,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 5,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 6,
+     "tema": "Трчање на 1000м",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-izdrzljivost"
+     ]
+    },
+    {
+     "rb": 7,
+     "tema": "Техника трчања на кратке стазе 100м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-sprint"
+     ]
+    },
+    {
+     "rb": 8,
+     "tema": "Техника трчања на дуге стазе 1000м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dugo"
+     ]
+    },
+    {
+     "rb": 9,
+     "tema": "Техника ношења и предаје штафете",
+     "sport": "atletika",
+     "elementi": [
+      "atl-stafeta"
+     ]
+    },
+    {
+     "rb": 10,
+     "tema": "Техника ношења и предаје штафете",
+     "sport": "atletika",
+     "elementi": [
+      "atl-stafeta"
+     ]
+    },
+    {
+     "rb": 11,
+     "tema": "СКОКОВИ-Техника скока у даљ-корачна техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-koracna"
+     ]
+    },
+    {
+     "rb": 12,
+     "tema": "Техника скока у даљ-корачна техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-koracna"
+     ]
+    },
+    {
+     "rb": 13,
+     "tema": "БАЦАЊА-Техника бацања кугле-ротациона техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-rot"
+     ]
+    },
+    {
+     "rb": 14,
+     "tema": "Техника бацања кугле-ротациона техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-rot"
+     ]
+    },
+    {
+     "rb": 15,
+     "tema": "Техника бацања кугле-ротациона техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-rot"
+     ]
+    },
+    {
+     "rb": 16,
+     "tema": "Оцењивање",
+     "sport": "atletika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 17,
+     "tema": "Техника вођења лопте-праволиниски",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-vodjenje-pravo"
+     ]
+    },
+    {
+     "rb": 18,
+     "tema": "Техника вођења лопте-са променом правца и смера кретања",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-vodjenje-promena"
+     ]
+    },
+    {
+     "rb": 19,
+     "tema": "Техника вођења лопте-са променом правца и смера кретања",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-vodjenje-promena"
+     ]
+    },
+    {
+     "rb": 20,
+     "tema": "Фудбал - Техника додавања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dodavanje"
+     ]
+    },
+    {
+     "rb": 21,
+     "tema": "Техника додавања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dodavanje"
+     ]
+    },
+    {
+     "rb": 22,
+     "tema": "Техника додавања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dodavanje"
+     ]
+    },
+    {
+     "rb": 23,
+     "tema": "Техника пријема лопте",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-prijem"
+     ]
+    },
+    {
+     "rb": 24,
+     "tema": "Техника пријема лопте",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-prijem"
+     ]
+    },
+    {
+     "rb": 25,
+     "tema": "Правила футсала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-pravila-futsal"
+     ]
+    },
+    {
+     "rb": 26,
+     "tema": "Оцењивање",
+     "sport": "fudbal",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 27,
+     "tema": "Вежбе на тлу-Вага претклоном и заножењем и спојено,одразом једне ноге колут напред",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-vaga-kolut"
+     ]
+    },
+    {
+     "rb": 28,
+     "tema": "Вага претклоном и заножењем и спојено,одразом једне ноге колут напред",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-vaga-kolut"
+     ]
+    },
+    {
+     "rb": 29,
+     "tema": "Став на шакама,издржај,колут напред",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-stav-sake"
+     ]
+    },
+    {
+     "rb": 30,
+     "tema": "Став на шакама,издржај,колут напред",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-stav-sake"
+     ]
+    },
+    {
+     "rb": 31,
+     "tema": "Став на шакама,издржај,колут напред",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-stav-sake"
+     ]
+    },
+    {
+     "rb": 32,
+     "tema": "Оцењивање",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 33,
+     "tema": "Закњучивање оцена",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    },
+    {
+     "rb": 34,
+     "tema": "ПРЕСКОЦИ-Техника прескока-разношка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-raznoska"
+     ]
+    },
+    {
+     "rb": 35,
+     "tema": "Техника прескока-разношка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-raznoska"
+     ]
+    },
+    {
+     "rb": 36,
+     "tema": "Техника прескока-разношка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-raznoska"
+     ]
+    },
+    {
+     "rb": 37,
+     "tema": "РАЗБОЈ-Њих у упору",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-njih"
+     ]
+    },
+    {
+     "rb": 38,
+     "tema": "Њих у упору",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-njih"
+     ]
+    },
+    {
+     "rb": 39,
+     "tema": "Њих у упору",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-njih"
+     ]
+    },
+    {
+     "rb": 40,
+     "tema": "Оцењивање",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 41,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 42,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 43,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 44,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 45,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 46,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 47,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 48,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 49,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 50,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 51,
+     "tema": "Техника обучавања сервиса-доњи сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-donji"
+     ]
+    },
+    {
+     "rb": 52,
+     "tema": "Техника обучавања сервиса-доњи сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-donji"
+     ]
+    },
+    {
+     "rb": 53,
+     "tema": "Оцењивање",
+     "sport": "odbojka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 54,
+     "tema": "Техника дриблинга-доњи",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dribling-niski"
+     ]
+    },
+    {
+     "rb": 55,
+     "tema": "Техника дриблинга-горњи",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dribling-visoki"
+     ]
+    },
+    {
+     "rb": 56,
+     "tema": "Техника дриблинга-горњи",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dribling-visoki"
+     ]
+    },
+    {
+     "rb": 57,
+     "tema": "Техника дриблинга-предња промена",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-promena-prednja"
+     ]
+    },
+    {
+     "rb": 58,
+     "tema": "Техника дриблинга-предња промена",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-promena-prednja"
+     ]
+    },
+    {
+     "rb": 59,
+     "tema": "Техника дриблинга-задња промена",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-promena-zadnja"
+     ]
+    },
+    {
+     "rb": 60,
+     "tema": "Техника заустављања и пивотирања",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-zaustavljanje-pivot"
+     ]
+    },
+    {
+     "rb": 61,
+     "tema": "Техника заустављања и пивотирања",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-zaustavljanje-pivot"
+     ]
+    },
+    {
+     "rb": 62,
+     "tema": "Техника левог двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-levi"
+     ]
+    },
+    {
+     "rb": 63,
+     "tema": "Техника левог двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-levi"
+     ]
+    },
+    {
+     "rb": 64,
+     "tema": "Техника левог двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-levi"
+     ]
+    },
+    {
+     "rb": 65,
+     "tema": "Техника десног двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-desni"
+     ]
+    },
+    {
+     "rb": 66,
+     "tema": "Техника десног двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-desni"
+     ]
+    },
+    {
+     "rb": 67,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 68,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 69,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 70,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 71,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 72,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 73,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 74,
+     "tema": "Закључивање оцена",
+     "sport": "kosarka",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    }
+   ]
+  },
+  {
+   "godina": 2,
+   "naziv": "Друга Година",
+   "casovi": [
+    {
+     "rb": 1,
+     "tema": "Упознавање ученика са планом и програмом рада",
+     "sport": "kondicija",
+     "elementi": [
+      "org-uvod"
+     ]
+    },
+    {
+     "rb": 2,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 3,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 4,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 5,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 6,
+     "tema": "Трчање на 800м",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-izdrzljivost"
+     ]
+    },
+    {
+     "rb": 7,
+     "tema": "Техника трчања на кратке стазе 100м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-sprint"
+     ]
+    },
+    {
+     "rb": 8,
+     "tema": "Техника трчања на дуге стазе 1000м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dugo"
+     ]
+    },
+    {
+     "rb": 9,
+     "tema": "СКОКОВИ-Техника скока у даљ-корачна техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-koracna"
+     ]
+    },
+    {
+     "rb": 10,
+     "tema": "Техника скока у даљ-корачна техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-koracna"
+     ]
+    },
+    {
+     "rb": 11,
+     "tema": "БАЦАЊА-Техника бацања кугле-О Brien техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-obrajen"
+     ]
+    },
+    {
+     "rb": 12,
+     "tema": "Техника бацања кугле- О Brien техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-obrajen"
+     ]
+    },
+    {
+     "rb": 13,
+     "tema": "Техника бацања кугле- О Brien техника",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-obrajen"
+     ]
+    },
+    {
+     "rb": 14,
+     "tema": "Оцењивање",
+     "sport": "atletika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 15,
+     "tema": "Техника вођења лопте-праволиниски, са променом правца и смера кретања",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-vodjenje-pravo",
+      "fud-vodjenje-promena"
+     ]
+    },
+    {
+     "rb": 16,
+     "tema": "Фудбал - Техника додавања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dodavanje"
+     ]
+    },
+    {
+     "rb": 17,
+     "tema": "Техника пријема лопте",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-prijem"
+     ]
+    },
+    {
+     "rb": 18,
+     "tema": "Техника шутирања лопте-горњим делом стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-rist"
+     ]
+    },
+    {
+     "rb": 19,
+     "tema": "Техника шутирања лопте-горњим делом стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-rist"
+     ]
+    },
+    {
+     "rb": 20,
+     "tema": "Техника шутирања лопте-горњим делом стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-rist"
+     ]
+    },
+    {
+     "rb": 21,
+     "tema": "Техника шутирања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-unutr-spolj"
+     ]
+    },
+    {
+     "rb": 22,
+     "tema": "Техника шутирања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-unutr-spolj"
+     ]
+    },
+    {
+     "rb": 23,
+     "tema": "Техника шутирања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-unutr-spolj"
+     ]
+    },
+    {
+     "rb": 24,
+     "tema": "Техника шутирања лопте главом",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-glava"
+     ]
+    },
+    {
+     "rb": 25,
+     "tema": "Оцењивање",
+     "sport": "fudbal",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 26,
+     "tema": "Вежбе на тлу-Колут напред и спојено усправом до ваге предклоном и заножењем",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-kolut-vaga"
+     ]
+    },
+    {
+     "rb": 27,
+     "tema": "Колут напред и спојено усправом до ваге предклоном и заножењем",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-kolut-vaga"
+     ]
+    },
+    {
+     "rb": 28,
+     "tema": "Два повезана премета странце удесно и улево",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-premet-strance"
+     ]
+    },
+    {
+     "rb": 29,
+     "tema": "Два повезана премета странце удесно и улево",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-premet-strance"
+     ]
+    },
+    {
+     "rb": 30,
+     "tema": "ПРЕСКОЦИ-Техника прескока-разношка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-raznoska"
+     ]
+    },
+    {
+     "rb": 31,
+     "tema": "Техника прескока-згрчка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-zgrcka"
+     ]
+    },
+    {
+     "rb": 32,
+     "tema": "Оцењивање",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 33,
+     "tema": "Закључивање оцена",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    },
+    {
+     "rb": 34,
+     "tema": "Техника прескока-згрчка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-zgrcka"
+     ]
+    },
+    {
+     "rb": 35,
+     "tema": "Техника прескока-згрчка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-zgrcka"
+     ]
+    },
+    {
+     "rb": 36,
+     "tema": "РАЗБОЈ-Из њиха у упору,предњихом саскок са окретом за 180 степени",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-saskok"
+     ]
+    },
+    {
+     "rb": 37,
+     "tema": "Из њиха у упору,предњихом саскок са окретом за 180 степени",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-saskok"
+     ]
+    },
+    {
+     "rb": 38,
+     "tema": "Из њиха у упору,предњихом саскок са окретом за 180 степени",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-razboj-saskok"
+     ]
+    },
+    {
+     "rb": 39,
+     "tema": "Оцењивање",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 40,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 41,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 42,
+     "tema": "Техника обучавања сервиса-доњи сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-donji"
+     ]
+    },
+    {
+     "rb": 43,
+     "tema": "Техника обучавања сервиса-лелујави сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-lelujavi"
+     ]
+    },
+    {
+     "rb": 44,
+     "tema": "Техника обучавања сервиса-лелујави сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-lelujavi"
+     ]
+    },
+    {
+     "rb": 45,
+     "tema": "Техника обучавања сервиса-лелујави сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-lelujavi"
+     ]
+    },
+    {
+     "rb": 46,
+     "tema": "Техника обучавања сервиса-са ротацијом лопте",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-rotacija"
+     ]
+    },
+    {
+     "rb": 47,
+     "tema": "Техника обучавања сервиса-са ротацијом лопте",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-rotacija"
+     ]
+    },
+    {
+     "rb": 48,
+     "tema": "Техника обучавања сервиса-са ротацијом лопте",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-rotacija"
+     ]
+    },
+    {
+     "rb": 49,
+     "tema": "Правила одбојкашке игре",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-pravila"
+     ]
+    },
+    {
+     "rb": 50,
+     "tema": "Оцењивање",
+     "sport": "odbojka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 51,
+     "tema": "Техника дриблинга-горњи",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dribling-visoki"
+     ]
+    },
+    {
+     "rb": 52,
+     "tema": "Техника дриблинга-предња и задња промена",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-promena-prednja",
+      "kos-promena-zadnja"
+     ]
+    },
+    {
+     "rb": 53,
+     "tema": "Техника левог двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-levi"
+     ]
+    },
+    {
+     "rb": 54,
+     "tema": "Техника десног двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-desni"
+     ]
+    },
+    {
+     "rb": 55,
+     "tema": "Техника додавања лопте-са груди",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dodavanje-grudi"
+     ]
+    },
+    {
+     "rb": 56,
+     "tema": "Техника додавања лопте-са груди",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dodavanje-grudi"
+     ]
+    },
+    {
+     "rb": 57,
+     "tema": "Техника скок шута",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-skok-sut"
+     ]
+    },
+    {
+     "rb": 58,
+     "tema": "Техника скок шута",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-skok-sut"
+     ]
+    },
+    {
+     "rb": 59,
+     "tema": "Техника скок шута",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-skok-sut"
+     ]
+    },
+    {
+     "rb": 60,
+     "tema": "Техника шута из дриблинга",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-sut-iz-driblinga"
+     ]
+    },
+    {
+     "rb": 61,
+     "tema": "Техника шута из дриблинга",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-sut-iz-driblinga"
+     ]
+    },
+    {
+     "rb": 62,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 63,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 64,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 65,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 66,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 67,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 68,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 69,
+     "tema": "Закључивање оцена",
+     "sport": "kosarka",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    }
+   ]
+  },
+  {
+   "godina": 3,
+   "naziv": "Трећа Година",
+   "casovi": [
+    {
+     "rb": 1,
+     "tema": "Упознавање ученика са планом и програмом рада",
+     "sport": "kondicija",
+     "elementi": [
+      "org-uvod"
+     ]
+    },
+    {
+     "rb": 2,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 3,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 4,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 5,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 6,
+     "tema": "Трчање на 1000м",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-izdrzljivost"
+     ]
+    },
+    {
+     "rb": 7,
+     "tema": "Техника трчања на кратке стазе 100м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-sprint"
+     ]
+    },
+    {
+     "rb": 8,
+     "tema": "Техника трчања на дуге стазе 1000м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dugo"
+     ]
+    },
+    {
+     "rb": 9,
+     "tema": "СКОКОВИ-Техника скока у даљ-одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-izbor"
+     ]
+    },
+    {
+     "rb": 10,
+     "tema": "Техника скока у даљ- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-izbor"
+     ]
+    },
+    {
+     "rb": 11,
+     "tema": "БАЦАЊА-Техника бацања кугле- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-izbor"
+     ]
+    },
+    {
+     "rb": 12,
+     "tema": "Техника бацања кугле- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-izbor"
+     ]
+    },
+    {
+     "rb": 13,
+     "tema": "Техника бацања кугле- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-izbor"
+     ]
+    },
+    {
+     "rb": 14,
+     "tema": "Оцењивање",
+     "sport": "atletika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 15,
+     "tema": "Техника шутирања лопте-горњим делом стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-rist"
+     ]
+    },
+    {
+     "rb": 16,
+     "tema": "Техника шутирања лопте-унутрашњом и спољашњом страном стопала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-unutr-spolj"
+     ]
+    },
+    {
+     "rb": 17,
+     "tema": "Техника шутирања лопте главом",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-sut-glava"
+     ]
+    },
+    {
+     "rb": 18,
+     "tema": "Техника пријема лопте",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-prijem"
+     ]
+    },
+    {
+     "rb": 19,
+     "tema": "Техника пријема лопте",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-prijem"
+     ]
+    },
+    {
+     "rb": 20,
+     "tema": "Техника обучавања дриблинга",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dribling"
+     ]
+    },
+    {
+     "rb": 21,
+     "tema": "Техника обучавања дриблинга",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dribling"
+     ]
+    },
+    {
+     "rb": 22,
+     "tema": "Техника обучавања дриблинга",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-dribling"
+     ]
+    },
+    {
+     "rb": 23,
+     "tema": "Оцењивање",
+     "sport": "fudbal",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 24,
+     "tema": "ПРЕСКОЦИ-Техника прескока-склонка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-sklonka"
+     ]
+    },
+    {
+     "rb": 25,
+     "tema": "Техника прескока-склонка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-sklonka"
+     ]
+    },
+    {
+     "rb": 26,
+     "tema": "Техника прескока-склонка",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-preskok-sklonka"
+     ]
+    },
+    {
+     "rb": 27,
+     "tema": "КОЊ СА ХВАТАЉКАМА-Премах одножно десном напред замах улево,замах удесно,замах улево и спојено премах левом напред,премах десном назад,замах улево,замах удесно и спојено одножењем десне,саскок са окретом за 90 степени.",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-konj-sastav"
+     ]
+    },
+    {
+     "rb": 28,
+     "tema": "Премах одножно десном напред замах улево,замах удесно,замах улево и спојено премах левом напред,премах десном назад,замах улево,замах удесно и спојено одножењем десне,саскок са окретом за 90 степени",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-konj-sastav"
+     ]
+    },
+    {
+     "rb": 29,
+     "tema": "Премах одножно десном напред замах улево,замах удесно,замах улево и спојено премах левом напред,премах десном назад,замах улево,замах удесно и спојено одножењем десне,саскок са окретом за 90 степени",
+     "sport": "gimnastika",
+     "elementi": [
+      "gim-konj-sastav"
+     ]
+    },
+    {
+     "rb": 30,
+     "tema": "Оцењивање",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 31,
+     "tema": "Закључивање оцена",
+     "sport": "gimnastika",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    },
+    {
+     "rb": 32,
+     "tema": "Техника одбијања лопте прстима",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prsti"
+     ]
+    },
+    {
+     "rb": 33,
+     "tema": "Техника одбијања лопте чекићем",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-cekic"
+     ]
+    },
+    {
+     "rb": 34,
+     "tema": "Техника обучавања сервиса-доњи сервис, лелујави сервис",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-donji",
+      "odb-servis-lelujavi"
+     ]
+    },
+    {
+     "rb": 35,
+     "tema": "Техника обучавања сервиса-лелујави сервис, са ротацијом лопте",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-servis-lelujavi",
+      "odb-servis-rotacija"
+     ]
+    },
+    {
+     "rb": 36,
+     "tema": "Методика обучавања смеча",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-smec"
+     ]
+    },
+    {
+     "rb": 37,
+     "tema": "Методика обучавања смеча",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-smec"
+     ]
+    },
+    {
+     "rb": 38,
+     "tema": "Методика обучавања смеча",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-smec"
+     ]
+    },
+    {
+     "rb": 39,
+     "tema": "Методика обучавања блока",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-blok"
+     ]
+    },
+    {
+     "rb": 40,
+     "tema": "Методика обучавања блока",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-blok"
+     ]
+    },
+    {
+     "rb": 41,
+     "tema": "Методика обучавања блока",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-blok"
+     ]
+    },
+    {
+     "rb": 42,
+     "tema": "Оцењивање",
+     "sport": "odbojka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 43,
+     "tema": "Техника дриблинга",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dribling-visoki",
+      "kos-promena-prednja",
+      "kos-promena-zadnja"
+     ]
+    },
+    {
+     "rb": 44,
+     "tema": "Техника левог и десног двокорка",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dvokorak-levi",
+      "kos-dvokorak-desni"
+     ]
+    },
+    {
+     "rb": 45,
+     "tema": "Техника додавања лопте",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-dodavanje-grudi"
+     ]
+    },
+    {
+     "rb": 46,
+     "tema": "Техника скок шута",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-skok-sut"
+     ]
+    },
+    {
+     "rb": 47,
+     "tema": "Техника шута из дриблинга",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-sut-iz-driblinga"
+     ]
+    },
+    {
+     "rb": 48,
+     "tema": "ТАКТИКА НАПАДА-Постављање блокаде и pick and roll",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-blokada-pnr"
+     ]
+    },
+    {
+     "rb": 49,
+     "tema": "Постављање блокаде и pick and roll",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-blokada-pnr"
+     ]
+    },
+    {
+     "rb": 50,
+     "tema": "Постављање блокаде и pick and roll",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-blokada-pnr"
+     ]
+    },
+    {
+     "rb": 51,
+     "tema": "Утрчавање иза леђа „back door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-backdoor"
+     ]
+    },
+    {
+     "rb": 52,
+     "tema": "Утрчавање иза леђа „back door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-backdoor"
+     ]
+    },
+    {
+     "rb": 53,
+     "tema": "Утрчавање иза леђа „back door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-backdoor"
+     ]
+    },
+    {
+     "rb": 54,
+     "tema": "Утрчавање испред „front door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-frontdoor"
+     ]
+    },
+    {
+     "rb": 55,
+     "tema": "Утрчавање испред „front door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-frontdoor"
+     ]
+    },
+    {
+     "rb": 56,
+     "tema": "Утрчавање испред „front door“",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-frontdoor"
+     ]
+    },
+    {
+     "rb": 57,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 58,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 59,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 60,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 61,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 62,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 63,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 64,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 65,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 66,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 67,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 68,
+     "tema": "Закључивање оцена",
+     "sport": "kosarka",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    }
+   ]
+  },
+  {
+   "godina": 4,
+   "naziv": "Четврта Година",
+   "casovi": [
+    {
+     "rb": 1,
+     "tema": "Упознавање ученика са планом и програмом рада",
+     "sport": "kondicija",
+     "elementi": [
+      "org-uvod"
+     ]
+    },
+    {
+     "rb": 2,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 3,
+     "tema": "Вежбе обликовања(јачања,лабављења и растезања)",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-oblikovanje"
+     ]
+    },
+    {
+     "rb": 4,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 5,
+     "tema": "Вежбе снаге са и без тегова",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-snaga"
+     ]
+    },
+    {
+     "rb": 6,
+     "tema": "Трчање на 1000м",
+     "sport": "kondicija",
+     "elementi": [
+      "kon-izdrzljivost"
+     ]
+    },
+    {
+     "rb": 7,
+     "tema": "Техника трчања на кратке стазе 100м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-sprint"
+     ]
+    },
+    {
+     "rb": 8,
+     "tema": "Техника трчања на дуге стазе 1000м",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dugo"
+     ]
+    },
+    {
+     "rb": 9,
+     "tema": "СКОКОВИ-Техника скока у даљ-одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-dalj-izbor"
+     ]
+    },
+    {
+     "rb": 10,
+     "tema": "БАЦАЊА-Техника бацања кугле- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-izbor"
+     ]
+    },
+    {
+     "rb": 11,
+     "tema": "Техника бацања кугле- одабраном техником",
+     "sport": "atletika",
+     "elementi": [
+      "atl-kugla-izbor"
+     ]
+    },
+    {
+     "rb": 12,
+     "tema": "Оцењивање",
+     "sport": "atletika",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 13,
+     "tema": "Увежбавање елемената технике фудбала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 14,
+     "tema": "Увежбавање елемената технике фудбала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 15,
+     "tema": "Увежбавање елемената технике фудбала",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 16,
+     "tema": "Групна тактика напада",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-napad"
+     ]
+    },
+    {
+     "rb": 17,
+     "tema": "Групна тактика напада",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-napad"
+     ]
+    },
+    {
+     "rb": 18,
+     "tema": "Групна тактика напада",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-napad"
+     ]
+    },
+    {
+     "rb": 19,
+     "tema": "Групна тактика одбране",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-odbrana"
+     ]
+    },
+    {
+     "rb": 20,
+     "tema": "Групна тактика одбране",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-odbrana"
+     ]
+    },
+    {
+     "rb": 21,
+     "tema": "Групна тактика одбране",
+     "sport": "fudbal",
+     "elementi": [
+      "fud-taktika-odbrana"
+     ]
+    },
+    {
+     "rb": 22,
+     "tema": "Оцењивање",
+     "sport": "fudbal",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 23,
+     "tema": "Обучавање народног плеса МОРАВАЦ",
+     "sport": "ples",
+     "elementi": [
+      "ples-moravac"
+     ]
+    },
+    {
+     "rb": 24,
+     "tema": "Обучавање народног плеса МОРАВАЦ",
+     "sport": "ples",
+     "elementi": [
+      "ples-moravac"
+     ]
+    },
+    {
+     "rb": 25,
+     "tema": "Обучавање народног плеса МОРАВАЦ",
+     "sport": "ples",
+     "elementi": [
+      "ples-moravac"
+     ]
+    },
+    {
+     "rb": 26,
+     "tema": "Обучавање народног плеса ГРУЖАНКА",
+     "sport": "ples",
+     "elementi": [
+      "ples-gruzanka"
+     ]
+    },
+    {
+     "rb": 27,
+     "tema": "Обучавање народног плеса ГРУЖАНКА",
+     "sport": "ples",
+     "elementi": [
+      "ples-gruzanka"
+     ]
+    },
+    {
+     "rb": 28,
+     "tema": "Обучавање народног плеса ГРУЖАНКА",
+     "sport": "ples",
+     "elementi": [
+      "ples-gruzanka"
+     ]
+    },
+    {
+     "rb": 29,
+     "tema": "Обучавање БЕЧКОГ валцера",
+     "sport": "ples",
+     "elementi": [
+      "ples-becki-valcer"
+     ]
+    },
+    {
+     "rb": 30,
+     "tema": "Оцењивање",
+     "sport": "ples",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 31,
+     "tema": "Закњучивање оцена",
+     "sport": "ples",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    },
+    {
+     "rb": 32,
+     "tema": "Обучавање БЕЧКОГ валцера",
+     "sport": "ples",
+     "elementi": [
+      "ples-becki-valcer"
+     ]
+    },
+    {
+     "rb": 33,
+     "tema": "Обучавање БЕЧКОГ валцера",
+     "sport": "ples",
+     "elementi": [
+      "ples-becki-valcer"
+     ]
+    },
+    {
+     "rb": 34,
+     "tema": "Увежбавање елемената технике одбојке",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 35,
+     "tema": "Увежбавање елемената технике одбојке",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 36,
+     "tema": "Увежбавање елемената технике одбојке",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 37,
+     "tema": "Методика обучавања „првог темпа“",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prvi-tempo"
+     ]
+    },
+    {
+     "rb": 38,
+     "tema": "Методика обучавања „првог темпа“",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prvi-tempo"
+     ]
+    },
+    {
+     "rb": 39,
+     "tema": "Методика обучавања „првог темпа“",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-prvi-tempo"
+     ]
+    },
+    {
+     "rb": 40,
+     "tema": "Методика обучавања „алме“",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-alma"
+     ]
+    },
+    {
+     "rb": 41,
+     "tema": "Методика обучавања „алме“",
+     "sport": "odbojka",
+     "elementi": [
+      "odb-alma"
+     ]
+    },
+    {
+     "rb": 42,
+     "tema": "Оцењивање",
+     "sport": "odbojka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 43,
+     "tema": "Увежбавање елемената технике кошарке",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 44,
+     "tema": "Увежбавање елемената технике кошарке",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 45,
+     "tema": "Увежбавање елемената технике кошарке",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-uvezbavanje"
+     ]
+    },
+    {
+     "rb": 46,
+     "tema": "Групна тактика напада",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-napad"
+     ]
+    },
+    {
+     "rb": 47,
+     "tema": "Групна тактика напада",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-napad"
+     ]
+    },
+    {
+     "rb": 48,
+     "tema": "Групна тактика напада",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-napad"
+     ]
+    },
+    {
+     "rb": 49,
+     "tema": "Групна тактика напада",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-napad"
+     ]
+    },
+    {
+     "rb": 50,
+     "tema": "Групна тактика одбране",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-odbrana"
+     ]
+    },
+    {
+     "rb": 51,
+     "tema": "Групна тактика одбране",
+     "sport": "kosarka",
+     "elementi": [
+      "kos-taktika-odbrana"
+     ]
+    },
+    {
+     "rb": 52,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 53,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 54,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 55,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 56,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 57,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 58,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 59,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 60,
+     "tema": "Спортска игра по избору",
+     "sport": "kosarka",
+     "elementi": [
+      "org-igra-izbor"
+     ]
+    },
+    {
+     "rb": 61,
+     "tema": "Оцењивање",
+     "sport": "kosarka",
+     "elementi": [
+      "org-ocenjivanje"
+     ]
+    },
+    {
+     "rb": 62,
+     "tema": "Закључивање оцена",
+     "sport": "kosarka",
+     "elementi": [
+      "org-zakljucivanje"
+     ]
+    }
+   ]
+  }
+ ]
+}

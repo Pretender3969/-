@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог елемената</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2b8a3e">
+<link rel="icon" href="ikone/ikona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="ikone/ikona-192.png">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #e4e2dc;
+    --accent: #2b8a3e; --chip: #efede8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ecebe7; --muted: #a09e98; --line: #34332f; --chip: #2c2b28;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 1200px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  h1 { font-size: 18px; margin: 0; flex: 1 1 auto; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--text); padding: 6px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+  main { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+  .chip { border: 1px solid var(--line); background: var(--chip); color: var(--text); border-radius: 999px;
+          padding: 4px 12px; cursor: pointer; font: inherit; font-size: 14px; }
+  .chip[aria-pressed="true"] { background: var(--c, var(--text)); border-color: var(--c, var(--text)); color: #fff; }
+  input[type=search] { flex: 1 1 220px; min-width: 0; padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px;
+          background: var(--surface); color: var(--text); font: inherit; }
+  select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; }
+  .count { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 15px; margin: 24px 0 8px; display: flex; align-items: center; gap: 8px; }
+  h2 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+  h3 { font-size: 13px; color: var(--muted); font-weight: 600; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: .03em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 8px;
+          padding: 10px 12px; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+  .card:hover { border-color: var(--c); }
+  .card b { display: block; font-size: 14px; }
+  .card small { color: var(--muted); }
+  .years { display: flex; gap: 4px; margin-top: 6px; }
+  .y { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--chip); color: var(--muted); }
+  .y.on { background: var(--c); color: #fff; }
+  /* detalj */
+  dialog { border: 0; border-radius: 12px; padding: 0; width: min(640px, calc(100vw - 32px)); max-height: 88vh;
+           background: var(--surface); color: var(--text); }
+  dialog::backdrop { background: rgba(0,0,0,.45); }
+  .dhead { padding: 16px 20px; border-bottom: 4px solid var(--c); }
+  .dhead small { color: var(--muted); }
+  .dhead h4 { margin: 4px 0 0; font-size: 18px; }
+  .dbody { padding: 4px 20px 20px; overflow: auto; }
+  .dbody ul { margin: 4px 0; padding-left: 20px; }
+  .station { background: var(--chip); border-radius: 8px; padding: 10px 12px; }
+  .close { float: right; border: 0; background: transparent; color: var(--muted); font-size: 22px; cursor: pointer; }
+  /* planovi */
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  td { padding: 7px 10px; border-top: 1px solid var(--line); vertical-align: top; }
+  td.rb { width: 44px; color: var(--muted); text-align: right; }
+  td.sp { width: 6px; padding: 0; background: var(--c); }
+  .link { border: 0; background: var(--chip); color: var(--text); border-radius: 4px; padding: 1px 8px; margin: 2px 4px 2px 0;
+          cursor: pointer; font: inherit; font-size: 12px; }
+  tr.org td:not(.sp) { color: var(--muted); }
+  @media (max-width: 600px) { h1 { flex-basis: 100%; } td.rb { width: 32px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1><a href="index.html" title="Почетна" style="text-decoration:none;margin-right:8px;font-size:18px" aria-label="Почетна">⌂</a><span data-t="Каталог елемената">Каталог елемената</span>
+      <a href="zadaci.html" style="color:var(--muted);font-weight:400;font-size:14px;margin-left:8px" data-t="Мисаони задаци →">Мисаони задаци →</a>
+      <a href="cas.html" style="color:var(--muted);font-weight:400;font-size:14px;margin-left:8px" data-t="Градитељ часа →">Градитељ часа →</a></h1>
+    <div class="seg" role="group" id="tabs">
+      <button data-tab="elementi" aria-pressed="true" data-t="Елементи">Елементи</button>
+      <button data-tab="planovi" aria-pressed="false" data-t="Годишњи планови">Годишњи планови</button>
+      <button data-tab="igre" aria-pressed="false" data-t="Игре">Игре</button>
+    </div>
+    <div class="seg" role="group" id="pismo" aria-label="Pismo">
+      <button data-p="cir" aria-pressed="true">Ћир</button>
+      <button data-p="lat" aria-pressed="false">Lat</button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+
+<dialog id="detalj"></dialog>
+
+<script src="src/translit.js"></script>
+<script src="data/katalog-data.js"></script>
+<script src="data/igre-data.js"></script>
+<script>
+(() => {
+  const K = window.KATALOG;
+  const sportovi = Object.fromEntries(K.sportovi.map(s => [s.id, s]));
+  const elementi = Object.fromEntries(K.elementi.map(e => [e.id, e]));
+  const IGRE = window.IGRE || { kategorije: [], igre: [] };
+  const store = {
+    get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch {} }
+  };
+  const S = { pismo: store.get('pismo', 'cir'), tab: 'elementi', sport: 'sve', godina: 'sve', q: '', planGod: '1' };
+  const t = s => Translit.pismo(s, S.pismo);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const T = s => esc(t(s));
+  const app = document.getElementById('app');
+
+  function render() {
+    document.querySelectorAll('[data-t]').forEach(n => n.textContent = t(n.dataset.t));
+    document.title = t('Каталог елемената');
+    document.querySelectorAll('#pismo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === S.pismo));
+    document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.tab === S.tab));
+    ({ elementi: renderElementi, planovi: renderPlanovi, igre: renderIgre })[S.tab]();
+  }
+
+  function godineBadges(e, c) {
+    return `<div class="years">${[1,2,3,4].map(g =>
+      `<span class="y ${e.godine?.[g] ? 'on' : ''}" title="${e.godine?.[g] || 0}">${g}.</span>`).join('')}</div>`;
+  }
+
+  function renderElementi() {
+    const q = S.q.trim().toLowerCase();
+    const lista = K.elementi.filter(e =>
+      (S.sport === 'sve' || e.sport === S.sport) &&
+      (S.godina === 'sve' || e.godine?.[S.godina]) &&
+      (!q || [e.naziv, e.kratko, e.celina].some(x => x.toLowerCase().includes(q) || Translit.uLatinicu(x).toLowerCase().includes(q))));
+
+    let html = `<div class="filters">
+      <button class="chip" data-sport="sve" aria-pressed="${S.sport === 'sve'}">${T('Сви спортови')}</button>
+      ${K.sportovi.map(s => `<button class="chip" style="--c:${s.boja}" data-sport="${s.id}" aria-pressed="${S.sport === s.id}">${T(s.naziv)}</button>`).join('')}
+    </div>
+    <div class="filters">
+      <select id="godina">
+        <option value="sve">${T('Све године')}</option>
+        ${[1,2,3,4].map(g => `<option value="${g}" ${S.godina == g ? 'selected' : ''}>${g}. ${T('година')}</option>`).join('')}
+      </select>
+      <input type="search" id="q" placeholder="${T('Претрага…')}" value="${esc(S.q)}">
+      <span class="count">${lista.length} / ${K.elementi.length}</span>
+    </div>`;
+
+    for (const s of K.sportovi) {
+      const uSportu = lista.filter(e => e.sport === s.id);
+      if (!uSportu.length) continue;
+      html += `<h2 style="--c:${s.boja}"><span class="dot"></span>${T(s.naziv)}</h2>`;
+      const celine = [...new Set(uSportu.map(e => e.celina))];
+      for (const c of celine) {
+        html += `<h3>${T(c)}</h3><div class="grid">` + uSportu.filter(e => e.celina === c).map(e =>
+          `<button class="card" style="--c:${s.boja}" data-el="${e.id}"><b>${T(e.naziv)}</b><small>${T(e.kratko)}</small>${godineBadges(e)}</button>`
+        ).join('') + `</div>`;
+      }
+    }
+    if (!lista.length) html += `<p class="count">${T('Нема резултата.')}</p>`;
+    app.innerHTML = html;
+    const q2 = document.getElementById('q');
+    q2.oninput = () => { S.q = q2.value; renderElementi(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+    document.getElementById('godina').onchange = ev => { S.godina = ev.target.value; renderElementi(); };
+  }
+
+  function renderPlanovi() {
+    const plan = K.planovi.find(p => String(p.godina) === S.planGod);
+    let html = `<div class="filters">${K.planovi.map(p =>
+      `<button class="chip" data-plangod="${p.godina}" aria-pressed="${String(p.godina) === S.planGod}">${p.godina}. ${T('година')}</button>`).join('')}
+      <span class="count">${plan.casovi.length} ${T('часова')}</span></div><table>`;
+    for (const c of plan.casovi) {
+      const s = sportovi[c.sport];
+      const org = c.elementi.every(id => elementi[id].sport === 'ostalo');
+      html += `<tr class="${org ? 'org' : ''}"><td class="sp" style="--c:${s.boja}"></td><td class="rb">${c.rb}.</td>
+        <td>${T(c.tema)}<br>${c.elementi.map(id => `<button class="link" data-el="${id}">${T(elementi[id].naziv)}</button>`).join('')}</td></tr>`;
+    }
+    app.innerHTML = html + `</table>`;
+  }
+
+  const izvorOznaka = g => (g.izvor || []).includes('moje')
+    ? `<span class="chip" style="font-size:11px;padding:0 8px;background:var(--c-moje,#2b8a3e);border-color:transparent;color:#fff">${T((g.izvor || []).includes('gemini') ? '★ твоја + Gemini' : '★ твоја')}</span>`
+    : `<span class="chip" style="font-size:11px;padding:0 8px">Gemini</span>`;
+  function igraKartica(g) {
+    const kat = IGRE.kategorije.find(k => k.id === g.kategorija);
+    return `<details class="card" style="--c:var(--line);cursor:default">
+      <summary style="cursor:pointer">${izvorOznaka(g)} <b style="display:inline">${T(g.naziv)}</b> <small>· ${T(kat?.naziv || '')} · ${g.trajanje}′ · ${T(g.prostor)}</small></summary>
+      <p style="margin:6px 0">${T(g.cilj)}</p>
+      <ol style="margin:4px 0;padding-left:20px">${g.pravila.map(x => `<li>${T(x)}</li>`).join('')}</ol>
+      ${g.kapija ? `<p style="margin:4px 0"><b>${T('Капија')}:</b> ${T(g.kapija)}</p>` : ''}
+      ${g.rekviziti.length ? `<p style="margin:4px 0"><small>${T('Реквизити')}: ${T(g.rekviziti.join(', '))}</small></p>` : ''}
+      ${g.varijante ? `<p style="margin:4px 0"><small>${T('Варијанте / инклузија')}: ${T(g.varijante)}</small></p>` : ''}
+      ${g.bezbednost ? `<p style="margin:4px 0"><small>⚠ ${T(g.bezbednost)}</small></p>` : ''}
+      ${g.elementi.length ? `<p style="margin:4px 0">${g.elementi.map(id => `<button class="link" data-el="${id}">${T(elementi[id].naziv)}</button>`).join('')}</p>` : ''}
+      ${g.dokument ? `<p style="margin:4px 0"><small>${T('Извор')}: ${T(g.dokument)}${g.bodovi ? ' · ' + T(g.bodovi) : ''}</small></p>` : ''}
+      ${g.napomena ? `<p style="margin:4px 0"><small><i>${T(g.napomena)}</i></small></p>` : ''}
+    </details>`;
+  }
+
+  function renderIgre() {
+    S.igraKat = S.igraKat || 'sve'; S.igraIzvor = S.igraIzvor || 'sve';
+    const lista = IGRE.igre.filter(g => (S.igraKat === 'sve' || g.kategorija === S.igraKat)
+      && (S.igraIzvor === 'sve' || (g.izvor || []).includes(S.igraIzvor)));
+    app.innerHTML = `<div class="filters">
+      <button class="chip" data-igrakat="sve" aria-pressed="${S.igraKat === 'sve'}">${T('Све')}</button>
+      ${IGRE.kategorije.map(k => `<button class="chip" data-igrakat="${k.id}" aria-pressed="${S.igraKat === k.id}" title="${T(k.opis)}">${T(k.naziv)}</button>`).join('')}
+</div>
+      <div class="filters">${[['sve', 'Сви извори'], ['moje', '★ Моје игре'], ['gemini', 'Gemini']].map(([v, n]) =>
+        `<button class="chip" data-igraizvor="${v}" aria-pressed="${S.igraIzvor === v}">${T(n)}</button>`).join('')}
+      <span class="count">${lista.length} / ${IGRE.igre.length}</span></div>
+      <div class="grid" style="align-items:start">${lista.map(igraKartica).join('')}</div>`;
+  }
+
+  function lista(naslov, arr) {
+    return arr?.length ? `<h3>${T(naslov)}</h3><ul>${arr.map(x => `<li>${T(x)}</li>`).join('')}</ul>` : '';
+  }
+
+  function otvori(id) {
+    const e = elementi[id], s = sportovi[e.sport], d = document.getElementById('detalj');
+    const god = Object.entries(e.godine || {}).map(([g, n]) => `${g}. ${t('година')}: ${n}`).join(' · ');
+    d.style.setProperty('--c', s.boja);
+    d.innerHTML = `<div class="dhead"><button class="close" aria-label="Zatvori">×</button>
+        <small>${T(s.naziv)} · ${T(e.celina)}</small><h4>${T(e.naziv)}</h4></div>
+      <div class="dbody">
+        <p>${T(e.kratko)}</p>
+        ${god ? `<p class="count">${T('Часова у плану')} — ${esc(god)}</p>` : ''}
+        ${lista('Кључне тачке', e.kljucneTacke)}
+        ${lista('Честе грешке', e.cesteGreske)}
+        ${e.rekviziti?.length ? `<h3>${T('Реквизити')}</h3><p>${T(e.rekviziti.join(', '))} · ${T('простор')}: ${T(e.prostor)}</p>` : ''}
+        ${e.merljivo?.length ? `<h3>${T('Мерљиво (улаз за мисаони задатак)')}</h3><p>${T(e.merljivo.join(', '))}</p>` : ''}
+        ${e.stanica?.kretanje ? `<h3>${T('Идеја за станицу')}</h3><div class="station">
+          <p style="margin:0 0 6px"><b>${T('Кретање')}:</b> ${T(e.stanica.kretanje)}</p>
+          ${e.stanica.kapija ? `<p style="margin:0"><b>${T('Капија')}:</b> ${T(e.stanica.kapija)}</p>` : ''}</div>` : ''}
+      </div>`;
+    const igre = IGRE.igre.filter(g => g.elementi.includes(id));
+    if (igre.length) d.querySelector('.dbody').insertAdjacentHTML('beforeend',
+      `<h3>${T('Игре за овај елемент')}</h3><div style="display:grid;gap:8px">${igre.map(igraKartica).join('')}</div>`);
+    d.querySelector('.close').onclick = () => d.close();
+    d.showModal();
+  }
+
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.p) { S.pismo = b.dataset.p; store.set('pismo', S.pismo); render(); }
+    else if (b.dataset.tab) { S.tab = b.dataset.tab; render(); }
+    else if (b.dataset.sport) { S.sport = b.dataset.sport; renderElementi(); }
+    else if (b.dataset.plangod) { S.planGod = b.dataset.plangod; renderPlanovi(); }
+    else if (b.dataset.igrakat) { S.igraKat = b.dataset.igrakat; renderIgre(); }
+    else if (b.dataset.igraizvor) { S.igraIzvor = b.dataset.igraizvor; renderIgre(); }
+    else if (b.dataset.el) otvori(b.dataset.el);
+  });
+  document.getElementById('detalj').addEventListener('click', ev => { if (ev.target.id === 'detalj') ev.target.close(); });
+  render();
+})();
+</script>
+<script src="src/pwa.js"></script>
+</body>
+</html>

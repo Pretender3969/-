@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Час уживо</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2b8a3e">
+<link rel="icon" href="ikone/ikona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="ikone/ikona-192.png">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #e4e2dc;
+    --chip: #efede8; --accent: #1971c2; --ok: #2b8a3e; --bad: #c92a2a; --warn: #e8590c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ecebe7; --muted: #a09e98; --line: #34332f; --chip: #2c2b28;
+      --accent: #4dabf7; --ok: #51cf66; --bad: #ff6b6b; --warn: #ffa94d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 1200px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  h1 { font-size: 17px; margin: 0; flex: 1 1 auto; }
+  h1 small { color: var(--muted); font-weight: 400; display: block; font-size: 13px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--text); padding: 6px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+  select, input { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; min-width: 0; }
+  .btn { border: 1px solid var(--text); background: var(--text); color: var(--surface); border-radius: 8px;
+         padding: 8px 14px; cursor: pointer; font: inherit; touch-action: manipulation; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+  .btn.small { padding: 4px 10px; font-size: 13px; }
+  .btn.ok { background: var(--ok); border-color: var(--ok); color: #fff; }
+  main { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  .count { color: var(--muted); font-size: 13px; }
+  .empty { text-align: center; padding: 48px 16px; }
+
+  /* tajmer */
+  .clock { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; }
+  .phases { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .phases button { border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; padding: 3px 12px; cursor: pointer; font: inherit; font-size: 13px; }
+  .phases button[aria-current="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+  .clock-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .time { font-size: clamp(44px, 9vw, 72px); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; min-width: 4.2ch; }
+  .time.low { color: var(--warn); }
+  .time.over { color: var(--bad); }
+  .clock-info { flex: 1 1 200px; }
+  .clock-info b { font-size: 18px; }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .progress { height: 6px; background: var(--chip); border-radius: 3px; overflow: hidden; margin-top: 12px; }
+  .progress div { height: 100%; background: var(--accent); }
+
+  /* timovi */
+  .teams { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+  .team { background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--c); border-radius: 12px; padding: 12px 14px; }
+  .team-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .team-head b { font-size: 18px; }
+  .pts { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .where { margin: 6px 0 10px; }
+  .where .st { display: inline-block; background: var(--text); color: var(--surface); border-radius: 6px; padding: 0 8px; font-weight: 700; margin-right: 6px; }
+  .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .acts button { border: 1px solid var(--line); background: var(--chip); color: var(--text); border-radius: 8px; padding: 9px 6px;
+                 cursor: pointer; font: inherit; font-size: 14px; touch-action: manipulation; }
+  .acts button[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .acts .hint { grid-column: span 1; }
+  .clues { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
+  .clue { width: 30px; height: 34px; border: 2px solid var(--line); border-radius: 6px; display: grid; place-items: center;
+          font-weight: 700; font-size: 15px; position: relative; }
+  .clue small { position: absolute; top: -9px; left: 2px; font-size: 9px; color: var(--muted); background: var(--surface); padding: 0 2px; }
+  .clue.got { border-color: var(--ok); color: var(--ok); }
+  details { margin-top: 8px; font-size: 14px; }
+  summary { cursor: pointer; color: var(--accent); }
+  .ans { background: var(--chip); border-radius: 6px; padding: 8px 10px; margin-top: 6px; white-space: pre-line; }
+  .final { margin-top: 10px; display: flex; gap: 6px; }
+  .final input { width: 100%; letter-spacing: .2em; font-weight: 700; text-align: center; }
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: 13px; font-weight: 600; }
+  .badge.win { background: var(--ok); color: #fff; }
+  .badge.bad { background: var(--bad); color: #fff; }
+
+  /* signal rotacije */
+  #signal { position: fixed; inset: 0; z-index: 50; display: none; place-items: center; background: var(--accent); color: #fff;
+            text-align: center; cursor: pointer; }
+  #signal.on { display: grid; animation: pulse 1s ease-in-out 3; }
+  #signal h2 { font-size: clamp(40px, 10vw, 96px); margin: 0; }
+  @keyframes pulse { 50% { filter: brightness(1.3); } }
+
+  /* projektor */
+  body.proj header .tools, body.proj .teacher { display: none !important; }
+  body.proj .time { font-size: clamp(80px, 16vw, 180px); }
+  body.proj .clock { text-align: center; }
+  body.proj .clock-row { justify-content: center; }
+  .board { display: none; }
+  body.proj .board { display: block; }
+  .board table { width: 100%; border-collapse: collapse; font-size: clamp(18px, 2.6vw, 30px); }
+  .board td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .board .sw { width: 18px; height: 18px; border-radius: 50%; background: var(--c); display: inline-block; margin-right: 10px; }
+  .board .mask { letter-spacing: .25em; }
+  .board .rot { margin: 14px 0; font-size: clamp(16px, 2vw, 24px); }
+  @media (max-width: 600px) { .acts button { padding: 11px 6px; } }
+  .slika { margin: 8px 0; overflow-x: auto; color: inherit; }
+  .slika svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1 id="naslov"><span data-t="Час уживо">Час уживо</span></h1>
+    <span class="tools" style="display:contents">
+      <a href="index.html" title="Почетна" style="text-decoration:none;margin-right:8px;font-size:18px" aria-label="Почетна">⌂</a>
+      <select id="izbor" style="width:auto;max-width:46vw"></select>
+      <button class="btn ghost small" id="reset" data-t="Почни испочетка">Почни испочетка</button>
+    </span>
+    <button class="btn small" id="proj" data-t="Пројектор">Пројектор</button>
+    <div class="seg" id="pismo">
+      <button data-p="cir" aria-pressed="true">Ћир</button>
+      <button data-p="lat" aria-pressed="false">Lat</button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<div id="signal" role="alert"></div>
+
+<script src="src/translit.js"></script>
+<script src="src/generator.js"></script>
+<script src="src/price.js"></script>
+<script src="data/katalog-data.js"></script>
+<script src="data/zadaci-data.js"></script>
+<script>
+(() => {
+  const K = window.KATALOG, Z = window.ZADACI, PRICE = window.PRICE;
+  const EL = Object.fromEntries(K.elementi.map(e => [e.id, e]));
+  const ZAD = Object.fromEntries(Z.zadaci.map(z => [z.id, z]));
+  const BOJE = ['#e03131', '#1971c2', '#2f9e44', '#f08c00', '#9c36b5', '#0c8599', '#e64980', '#5c940d'];
+  const BODOVI = { resen: 3, kapija: 1, nagovestaj: -1, finale: [5, 3, 1] };
+  const FAZE = [['uvodni', 'Уводни'], ['pripremni', 'Припремни'], ['glavni', 'Главни'], ['zavrsni', 'Завршни']];
+
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  let pismo = store.get('pismo-cas', 'cir');
+  const t = s => Translit.pismo(s, pismo);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const T = s => esc(t(s));
+  const app = document.getElementById('app');
+
+  let C = null;      // čas (iz graditelja)
+  let S = null;      // stanje časa uživo
+  let projektor = false;
+
+  // ---------- pomoćno iz modela časa ----------
+  const prica = () => PRICE.find(p => p.id === C.prica) || PRICE[0];
+  const N = () => C.stanice.length;
+  const imeStanice = i => t(prica().stanice[i] || `Станица ${i + 1}`);
+  const naStanici = (g, r) => (g + r) % N();
+  const minPoStanici = () => Math.floor(C.minuti.glavni / N());
+  const kod = () => C.stanice.map(s => s.zadatak.cifra).join('');
+  const lekcija = () => K.planovi.find(p => p.godina === C.godina)?.casovi.find(c => c.rb === C.casRb);
+  function zadatak(spec) {
+    if (spec.izvor === 'banka') { const z = ZAD[spec.id];
+      return { tekst: t(z.tekst), odgovor: t(z.odgovor), nagovestaji: (z.nagovestaji || []).map(t), cifra: spec.cifra }; }
+    return Generator.generisi(spec.sablon, spec.cifra, { nivo: spec.nivo, pismo, seed: spec.seed });
+  }
+
+  // ---------- stanje ----------
+  function trajanjeFaze(f) { return (f === 2 ? minPoStanici() : C.minuti[FAZE[f][0]]) * 60000; }
+  function novoStanje() {
+    return { casId: C.id, faza: 0, krug: 0, radi: false, krajU: null, preostalo: trajanjeFaze(0), auto: false,
+      timovi: Array.from({ length: C.grupe }, () => ({ kapije: {}, resene: {}, nagovestaji: 0, pokusaji: 0, zavrsio: null })) };
+  }
+  const kljuc = () => 'uzivo-' + C.id;
+  const sacuvaj = () => store.set(kljuc(), S);
+  function preostalo() { return S.radi ? S.krajU - Date.now() : S.preostalo; }
+
+  function bodovi(tm) {
+    const r = Object.keys(tm.resene).length, k = Object.keys(tm.kapije).length;
+    const fin = tm.zavrsio ? (BODOVI.finale[tm.zavrsio.mesto - 1] || 0) : 0;
+    return r * BODOVI.resen + k * BODOVI.kapija + tm.nagovestaji * BODOVI.nagovestaj + fin;
+  }
+
+  function ucitaj(id) {
+    const sve = store.get('casovi', {});
+    C = sve[id] || null;
+    if (!C) { S = null; render(); return; }
+    S = store.get('uzivo-' + id, null);
+    if (!S || S.timovi.length !== C.grupe) S = novoStanje();
+    store.set('uzivo-poslednji', id);
+    render();
+  }
+
+  // ---------- tajmer ----------
+  function start() { if (S.radi) return; S.krajU = Date.now() + S.preostalo; S.radi = true; zvuk.priprema(); budan(true); sacuvaj(); render(); }
+  function pauza() { if (!S.radi) return; S.preostalo = S.krajU - Date.now(); S.radi = false; sacuvaj(); render(); }
+  function postaviFazu(f, krug = 0) {
+    S.faza = f; S.krug = krug; S.radi = false; S.preostalo = trajanjeFaze(f); sacuvaj(); render();
+  }
+  function sledeci() {
+    if (S.faza === 2 && S.krug < N() - 1) { postaviFazu(2, S.krug + 1); if (S.auto) start(); }
+    else if (S.faza < 3) postaviFazu(S.faza + 1);
+  }
+  function dodaj(min) {
+    if (S.radi) S.krajU += min * 60000; else S.preostalo = Math.max(0, S.preostalo + min * 60000);
+    sacuvaj(); tick();
+  }
+  let istekloJavljeno = false;
+  function tick() {
+    if (!C || !S) return;
+    const ms = preostalo();
+    const el = document.getElementById('time');
+    if (el) {
+      const neg = ms < 0, a = Math.abs(Math.ceil(ms / 1000));
+      el.textContent = `${neg ? '+' : ''}${Math.floor(a / 60)}:${String(a % 60).padStart(2, '0')}`;
+      el.className = 'time' + (neg ? ' over' : ms < 60000 ? ' low' : '');
+      const p = document.getElementById('prog');
+      if (p) p.style.width = Math.min(100, Math.max(0, 100 * (1 - ms / trajanjeFaze(S.faza)))) + '%';
+    }
+    if (S.radi && ms <= 0 && !istekloJavljeno) {
+      istekloJavljeno = true;
+      signal();
+    }
+    if (ms > 0) istekloJavljeno = false;
+  }
+  setInterval(tick, 250);
+
+  function signal() {
+    zvuk.kraj();
+    try { if (navigator.userActivation?.hasBeenActive) navigator.vibrate?.([300, 150, 300, 150, 600]); } catch {}
+    const sig = document.getElementById('signal');
+    const zadnji = S.faza === 2 && S.krug === N() - 1;
+    sig.innerHTML = S.faza === 2
+      ? `<div><h2>${T(zadnji ? 'Крај станица!' : 'Ротација!')}</h2><p style="font-size:24px">${T(zadnji ? 'Сви тимови — на завршни задатак.' : 'Тимови прелазе на следећу станицу.')}</p><p>${T('Додирни за наставак')}</p></div>`
+      : `<div><h2>${T('Време је истекло')}</h2><p style="font-size:24px">${T(FAZE[S.faza][1])} ${T('део је завршен.')}</p><p>${T('Додирни за наставак')}</p></div>`;
+    sig.className = 'on';
+    sig.onclick = () => { sig.className = ''; if (S.faza === 2 || S.auto) sledeci(); else { S.radi = false; S.preostalo = 0; sacuvaj(); render(); } };
+  }
+
+  const zvuk = (() => {
+    let ctx;
+    function ton(f, od, traj) {
+      try {
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.frequency.value = f; o.type = 'square'; g.gain.value = 0.15;
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime + od); o.stop(ctx.currentTime + od + traj);
+      } catch {}
+    }
+    return { priprema() { ton(880, 0, 0.12); }, kraj() { [0, 0.35, 0.7].forEach(d => ton(1200, d, 0.25)); ton(600, 1.1, 0.6); } };
+  })();
+
+  let wake = null;
+  async function budan(da) {
+    try { if (da && !wake && navigator.wakeLock) wake = await navigator.wakeLock.request('screen'); } catch {}
+  }
+
+  // ---------- prikaz ----------
+  function renderIzbor() {
+    const sve = Object.values(store.get('casovi', {})).sort((a, b) => (b.izmenjeno || 0) - (a.izmenjeno || 0));
+    const sel = document.getElementById('izbor');
+    sel.innerHTML = `<option value="">${T('Изабери час…')}</option>` + sve.map(c => {
+      const L = K.planovi.find(p => p.godina === c.godina)?.casovi.find(x => x.rb === c.casRb);
+      return `<option value="${c.id}" ${C && c.id === C.id ? 'selected' : ''}>${esc(c.datum)} · ${c.godina}. ${esc(c.odeljenje)} · ${L ? T(L.tema).slice(0, 38) : '—'}</option>`;
+    }).join('');
+    return sve.length;
+  }
+
+  function render() {
+    document.querySelectorAll('[data-t]').forEach(n => n.textContent = t(n.dataset.t));
+    document.title = t('Час уживо');
+    document.querySelectorAll('#pismo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === pismo));
+    document.body.classList.toggle('proj', projektor);
+    document.getElementById('proj').textContent = t(projektor ? 'Наставник' : 'Пројектор');
+    const broj = renderIzbor();
+    if (!C) {
+      app.innerHTML = `<div class="empty"><h2>${T('Изаберите сачуван час')}</h2>
+        <p class="count">${broj ? T('Изаберите час горе у менију.') : T('Још нема сачуваних часова. Направите час у градитељу и кликните „Сачувај“.')}</p>
+        <a class="btn" href="cas.html">${T('Отвори градитељ часа')}</a></div>`;
+      document.getElementById('naslov').innerHTML = `<span>${T('Час уживо')}</span>`;
+      return;
+    }
+    const L = lekcija(), P = prica();
+    document.getElementById('naslov').innerHTML = `${T(P.naziv)}<small>${C.godina}. ${T('година')} ${esc(C.odeljenje)} · ${L ? T(L.tema) : ''}</small>`;
+
+    const glavni = S.faza === 2;
+    const info = glavni
+      ? `<b>${S.krug + 1}. ${T('круг')} / ${N()}</b><div class="count">${T('станица')}: ${minPoStanici()} ${T('мин (са прелазом)')}</div>`
+      : `<b>${T(FAZE[S.faza][1])} ${T('део')}</b><div class="count">${S.faza === 0 ? T('Прочитајте причу и поделите тимове.') : S.faza === 1 ? T('Вежбе обликовања и загревање.') : T(P.finale)}</div>`;
+    const sledLabel = glavni && S.krug < N() - 1 ? 'Следећи круг' : S.faza < 3 ? 'Следећи део' : '';
+
+    let h = `<section class="clock">
+      <div class="phases teacher">${FAZE.map(([k, n], i) => `<button data-faza="${i}" aria-current="${i === S.faza}">${T(n)} · ${i === 2 ? C.minuti.glavni : C.minuti[k]}′</button>`).join('')}</div>
+      <div class="clock-row">
+        <div class="time" id="time">0:00</div>
+        <div class="clock-info">${info}</div>
+        <div class="controls teacher">
+          ${S.radi ? `<button class="btn" data-a="pauza">⏸ ${T('Пауза')}</button>` : `<button class="btn ok" data-a="start">▶ ${T('Старт')}</button>`}
+          <button class="btn ghost" data-a="minus">−1′</button><button class="btn ghost" data-a="plus">+1′</button>
+          ${sledLabel ? `<button class="btn ghost" data-a="sledeci">${T(sledLabel)} →</button>` : ''}
+          <label class="count" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="auto" ${S.auto ? 'checked' : ''}> ${T('аутоматски следећи круг')}</label>
+        </div>
+      </div>
+      <div class="progress"><div id="prog"></div></div>
+    </section>`;
+
+    // tabla za projektor
+    const poredak = S.timovi.map((tm, g) => ({ g, tm, p: bodovi(tm) })).sort((a, b) =>
+      (a.tm.zavrsio?.mesto ?? 99) - (b.tm.zavrsio?.mesto ?? 99) || b.p - a.p);
+    h += `<section class="board">
+      ${glavni ? `<div class="rot">${S.timovi.map((_, g) => `<span style="margin-right:18px"><span class="sw" style="--c:${BOJE[g % 8]}"></span>${T('Тим')} ${g + 1} → <b>${naStanici(g, S.krug) + 1}</b> ${esc(imeStanice(naStanici(g, S.krug)))}</span>`).join('')}</div>` : ''}
+      <table>${poredak.map(({ g, tm, p }, i) => `<tr>
+        <td style="width:2ch">${i + 1}.</td>
+        <td><span class="sw" style="--c:${BOJE[g % 8]}"></span>${T('Тим')} ${g + 1} ${tm.zavrsio ? `<span class="badge win">🏆 ${tm.zavrsio.mesto}.</span>` : ''}</td>
+        <td class="mask">${C.stanice.map((_, s) => tm.resene[s] ? '★' : '·').join(' ')}</td>
+        <td style="text-align:right"><b>${p}</b></td></tr>`).join('')}</table></section>`;
+
+    // timovi (nastavnik)
+    h += `<section class="teams teacher">${S.timovi.map((tm, g) => {
+      const s = glavni ? naStanici(g, S.krug) : null;
+      const z = s != null ? zadatak(C.stanice[s].zadatak) : null;
+      return `<article class="team" style="--c:${BOJE[g % 8]}">
+        <div class="team-head"><b>${T('Тим')} ${g + 1}</b><span class="pts">${bodovi(tm)}</span></div>
+        ${glavni ? `<div class="where"><span class="st">${s + 1}</span>${esc(imeStanice(s))}<div class="count">${T(EL[C.stanice[s].element].naziv)}</div></div>
+          <div class="acts">
+            <button data-tim="${g}" data-a="kapija" aria-pressed="${!!tm.kapije[s]}">${T('Капија')} ✓</button>
+            <button data-tim="${g}" data-a="resen" aria-pressed="${!!tm.resene[s]}">${T('Решено')} ✓</button>
+            <button class="hint" data-tim="${g}" data-a="nagovestaj">💡 ${T('Наговештај')} (${tm.nagovestaji})</button>
+            <button data-tim="${g}" data-a="nagovestaj-">↶ ${T('врати наговештај')}</button>
+          </div>
+          <details><summary>${T('Задатак и одговор')}</summary><div class="ans">${esc(z.tekst)}${z.slika ? `<div class="slika">${z.slika}</div>` : ''}
+
+${T('Одговор')}: <b>${esc(z.odgovor)}</b> → ${T('траг')} <b>${z.cifra}</b>${z.nagovestaji?.length ? `\n💡 ${esc(z.nagovestaji[0])}` : ''}</div></details>`
+        : `<div class="where count">${S.faza < 2 ? T('Станице почињу у главном делу.') : T('Завршни задатак: тим уноси шифру.')}</div>`}
+        <div class="clues">${C.stanice.map((st, i) => `<div class="clue ${tm.resene[i] ? 'got' : ''}" title="${esc(imeStanice(i))}"><small>${i + 1}</small>${tm.resene[i] ? st.zadatak.cifra : ''}</div>`).join('')}</div>
+        ${S.faza >= 2 ? `<div class="final">${tm.zavrsio
+          ? `<span class="badge win">🏆 ${tm.zavrsio.mesto}. ${T('место')} · ${esc(tm.zavrsio.vreme)}</span> <button class="btn ghost small" data-tim="${g}" data-a="ponisti">${T('Поништи')}</button>`
+          : `<input data-sifra="${g}" inputmode="numeric" maxlength="${N()}" placeholder="${T('шифра')}"><button class="btn small" data-tim="${g}" data-a="proveri">${T('Провери')}</button>
+             ${tm.pokusaji ? `<span class="badge bad">✗ ${tm.pokusaji}</span>` : ''}`}</div>` : ''}
+      </article>`;
+    }).join('')}</section>
+    <p class="count teacher">${T('Бодови')}: ${T('решен задатак')} +${BODOVI.resen}, ${T('капија')} +${BODOVI.kapija}, ${T('наговештај')} ${BODOVI.nagovestaj}, ${T('финале')} +${BODOVI.finale.join('/+')}. ${T('Шифра')}: <b>${kod()}</b></p>`;
+    app.innerHTML = h;
+    document.getElementById('auto').onchange = e => { S.auto = e.target.checked; sacuvaj(); };
+    app.querySelectorAll('[data-sifra]').forEach(i => i.onkeydown = e => { if (e.key === 'Enter') akcija('proveri', +i.dataset.sifra); });
+    tick();
+  }
+
+  function akcija(a, g) {
+    if (a === 'start') return start();
+    if (a === 'pauza') return pauza();
+    if (a === 'plus') return dodaj(1);
+    if (a === 'minus') return dodaj(-1);
+    if (a === 'sledeci') return sledeci();
+    const tm = S.timovi[g], s = naStanici(g, S.krug);
+    if (a === 'kapija') { tm.kapije[s] ? delete tm.kapije[s] : tm.kapije[s] = true; }
+    if (a === 'resen') { if (tm.resene[s]) delete tm.resene[s]; else { tm.resene[s] = true; tm.kapije[s] = true; } }
+    if (a === 'nagovestaj') tm.nagovestaji++;
+    if (a === 'nagovestaj-') tm.nagovestaji = Math.max(0, tm.nagovestaji - 1);
+    if (a === 'proveri') {
+      const v = (document.querySelector(`[data-sifra="${g}"]`)?.value || '').replace(/\D/g, '');
+      if (!v) return;
+      if (v === kod()) {
+        const mesto = S.timovi.filter(x => x.zavrsio).length + 1;
+        tm.zavrsio = { mesto, vreme: new Date().toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) };
+        zvuk.priprema();
+      } else tm.pokusaji++;
+    }
+    if (a === 'ponisti') {
+      const m = tm.zavrsio.mesto; tm.zavrsio = null;
+      S.timovi.forEach(x => { if (x.zavrsio && x.zavrsio.mesto > m) x.zavrsio.mesto--; });
+    }
+    sacuvaj(); render();
+  }
+
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.p) { pismo = b.dataset.p; store.set('pismo-cas', pismo); render(); }
+    else if (b.dataset.faza) postaviFazu(+b.dataset.faza);
+    else if (b.dataset.a) akcija(b.dataset.a, +b.dataset.tim);
+  });
+  document.getElementById('izbor').onchange = e => e.target.value && ucitaj(e.target.value);
+  document.getElementById('proj').onclick = () => { projektor = !projektor; render(); };
+  document.getElementById('reset').onclick = () => {
+    if (C && confirm(t('Обрисати бодове и време овог часа и почети испочетка?'))) { S = novoStanje(); sacuvaj(); render(); }
+  };
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S?.radi) { wake = null; budan(true); } });
+
+  const id = new URLSearchParams(location.search).get('id') || store.get('uzivo-poslednji', null);
+  if (id) ucitaj(id); else render();
+})();
+</script>
+<script src="src/pwa.js"></script>
+</body>
+</html>
